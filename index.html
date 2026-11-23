@@ -189,7 +189,7 @@ section.block{padding:clamp(90px,14vw,180px) var(--gutter)}
 .contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(52px,10vw,170px);line-height:.9;letter-spacing:-.02em}
 .contact h2 i{color:var(--accent)}
 .contact .who{font-family:var(--thai);font-weight:300;font-size:clamp(20px,2.2vw,30px);margin:34px 0 10px}
-.contact .role{margin-bottom:42px}
+.contact .role{margin:34px 0 42px}
 .btn{display:inline-flex;align-items:center;gap:14px;padding:18px 34px;border:1px solid var(--champagne);border-radius:999px;
   text-decoration:none;font-size:12px;letter-spacing:.3em;text-transform:uppercase;position:relative;overflow:hidden;isolation:isolate;transition:color .5s var(--ease)}
 .btn::before{content:"";position:absolute;inset:0;background:var(--champagne);transform:translateY(101%);transition:transform .6s var(--ease);z-index:-1}
@@ -417,7 +417,6 @@ footer p{max-width:70ch;font-family:"Anuphan",var(--sans);font-weight:300}
   <div>
     <p class="eyebrow reveal">Graphic Designer — Beauty &amp; Cosmetics</p>
     <h2 class="reveal">Let's make<br><i>beauty</i> feel.</h2>
-    <p class="who reveal" id="who"></p>
     <p class="eyebrow role reveal" id="role"></p>
     <a class="btn reveal" id="cta" href="#">Get in touch <span aria-hidden="true">→</span></a>
   </div>
@@ -425,7 +424,6 @@ footer p{max-width:70ch;font-family:"Anuphan",var(--sans);font-weight:300}
 </main>
 
 <footer data-bg="#120b08" data-fg="#e8d2ad">
-  <p>งานชิ้นนี้เป็นคอนเซปต์เพื่อแสดงผลงานประกอบการสมัครงาน ไม่ใช่โฆษณาจริงของแบรนด์ และไม่ได้มีส่วนเกี่ยวข้องกับ Scbrush ภาพทั้งหมดผลิตด้วยเวิร์กโฟลว์ที่ใช้ AI ช่วย โดยกำหนด art direction ตัวอักษร และควบคุมความถูกต้องของสินค้าเอง ชื่อแบรนด์และสินค้าเป็นของเจ้าของ</p>
   <span>© 2026 The Chocolate Collection</span>
 </footer>
 
@@ -439,7 +437,6 @@ footer p{max-width:70ch;font-family:"Anuphan",var(--sans);font-weight:300}
 
 <script>
 const PROFILE = {
-  name: "ชื่อ นามสกุล",
   role: "Graphic Designer · Retouch · Art Direction",
   contactLabel: "Get in touch",
   contactHref: "mailto:you@example.com"
@@ -452,7 +449,6 @@ const WORKS = [
   { key: "melt-puff", title: "Melt" }
 ];
 
-document.getElementById("who").textContent = PROFILE.name;
 document.getElementById("role").textContent = PROFILE.role;
 const cta = document.getElementById("cta");
 cta.href = PROFILE.contactHref;
