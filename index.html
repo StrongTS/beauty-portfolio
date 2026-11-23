@@ -16,283 +16,247 @@
 <meta name="theme-color" content="#120b08">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=Manrope:wght@300;400;500;600&family=Trirong:ital,wght@0,200;0,300;0,400;1,200;1,300&family=Anuphan:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=Manrope:wght@300..700&family=Trirong:wght@200;300;400&family=Anuphan:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Rubik+Bubbles&family=Mitr:wght@400;600&family=Anton&family=Kanit:ital,wght@0,600;1,800&family=Pinyon+Script&family=Italiana&family=Charm:wght@400;700&family=Jost:wght@200;300&family=Unbounded:wght@700;900&family=Bebas+Neue&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --espresso:#120b08;
-  --cocoa:#24170f;
-  --mocha:#6b4a3a;
-  --caramel:#c89b72;
-  --champagne:#e8d2ad;
-  --ivory:#f5ede2;
-  --rose:#cf9f82;
-  --bg:var(--espresso);
-  --fg:var(--champagne);
-  --muted:color-mix(in oklab, var(--fg) 74%, transparent);
-  --accent:var(--rose);
-  --line:color-mix(in oklab, var(--fg) 22%, transparent);
-  --serif:"Bodoni Moda", "Trirong", serif;
-  --thai:"Trirong", "Bodoni Moda", serif;
-  --sans:"Manrope", "Anuphan", system-ui, sans-serif;
-  --gutter:clamp(16px, 4vw, 64px);
-  --ease:cubic-bezier(.2,.7,.1,1);
+  --espresso:#120b08;--cocoa:#3a2519;--mocha:#6b4a3a;--caramel:#c89b72;--champagne:#e8d2ad;--ivory:#f5ede2;--rose:#cf9f82;
+  --fg:#e8d2ad;--accent:#cf9f82;
+  --muted:color-mix(in oklab, var(--fg) 72%, transparent);
+  --line:color-mix(in oklab, var(--fg) 20%, transparent);
+  --serif:"Bodoni Moda","Trirong",serif;
+  --thai:"Trirong","Bodoni Moda",serif;
+  --sans:"Manrope","Anuphan",system-ui,sans-serif;
+  --body:"Anuphan","Manrope",system-ui,sans-serif;
+  --g:clamp(16px,4vw,64px);
+  --ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  background:var(--bg);color:var(--fg);
-  font-family:var(--sans);font-weight:400;line-height:1.6;
-  transition:background-color 1.1s var(--ease), color 1.1s var(--ease);
-  overflow-x:hidden;
-}
+html{-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--espresso);color:var(--fg);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
 img{display:block;max-width:100%}
-a{color:inherit}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
 ::selection{background:var(--caramel);color:var(--espresso)}
+.eyebrow{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
+.w,.ch{display:inline-block}
+.w{white-space:nowrap}
+.wrap-line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
 
-.grain{position:fixed;inset:-50%;pointer-events:none;z-index:90;opacity:.07;
+.grain{position:fixed;inset:-50%;pointer-events:none;z-index:200;opacity:.06;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 1.2s steps(6) infinite}
-@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+  animation:grain 1.1s steps(5) infinite}
+@keyframes grain{0%,100%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
 
-.progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);
-  background:linear-gradient(90deg,var(--rose),var(--champagne));z-index:95}
+.loader{position:fixed;inset:0;z-index:300;display:none;pointer-events:none}
+.anim .loader{display:block;pointer-events:auto}
+.loader .cols{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.loader .cols span{background:#0c0705;border-right:1px solid rgba(232,210,173,.05)}
+.loader .center{position:absolute;inset:0;display:grid;place-items:center}
+.loader .stack{position:relative;width:min(220px,44vw);aspect-ratio:1200/1490;overflow:hidden}
+.loader .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+.loader .stack img.on{opacity:1}
+.loader .count{position:absolute;right:var(--g);bottom:24px;font-family:var(--serif);font-size:clamp(70px,14vw,220px);line-height:.8;color:var(--champagne);overflow:hidden}
+.loader .count span{display:block}
+.loader .tag{position:absolute;left:var(--g);bottom:32px}
 
-.loader{position:fixed;inset:0;z-index:100;background:var(--espresso);display:grid;place-items:center;
-  transition:clip-path 1.1s var(--ease) .15s}
-.loader.done{clip-path:inset(0 0 100% 0)}
-.loader svg{width:92px;height:auto}
-.loader path{fill:none;stroke:var(--champagne);stroke-width:1.2;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.3s var(--ease) forwards}
-.loader path+path{animation-delay:.25s}
-@keyframes draw{to{stroke-dashoffset:0}}
+nav{position:fixed;inset:0 0 auto 0;z-index:150;display:flex;justify-content:space-between;align-items:center;padding:20px var(--g);mix-blend-mode:difference;color:#f5ede2}
+nav .mark{font-family:var(--serif);font-size:20px}
+nav .mark i{font-style:italic}
+nav ul{list-style:none;display:flex;gap:clamp(14px,2.4vw,36px)}
+nav a{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;position:relative}
+nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .6s var(--ease)}
+nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;background:linear-gradient(90deg,var(--rose),var(--champagne));transform-origin:0 50%;transform:scaleX(0);z-index:160}
 
-nav{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:space-between;align-items:center;
-  padding:18px var(--gutter);mix-blend-mode:difference;color:#f5ede2}
-nav .mark{font-family:var(--serif);font-size:22px;letter-spacing:.02em;text-decoration:none}
-nav .mark i{font-style:italic;font-weight:400}
-nav ul{list-style:none;display:flex;gap:clamp(14px,2.4vw,36px);font-size:11px;letter-spacing:.28em;text-transform:uppercase}
-nav a{text-decoration:none;opacity:.8;transition:opacity .3s}
-nav a:hover{opacity:1}
+.hero{position:relative;height:100svh;min-height:640px;overflow:hidden;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(12,7,5,.72),rgba(12,7,5,.1) 60%,rgba(12,7,5,.25)),linear-gradient(0deg,rgba(18,11,8,1),rgba(18,11,8,0) 30%)}
+.hero .copy{position:absolute;left:var(--g);bottom:clamp(40px,9vh,110px);right:var(--g);z-index:2}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(64px,13.5vw,250px);line-height:.82;letter-spacing:-.035em;color:var(--champagne)}
+.hero h1 .l2{display:block;padding-left:.9em}
+.hero h1 i{font-style:italic;color:var(--rose)}
+.hero .sub{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:24px;margin-top:clamp(22px,4vh,40px)}
+.hero .th{font-family:var(--thai);font-weight:300;font-size:clamp(17px,1.6vw,22px);max-width:30ch}
+.hero .stats{display:flex;gap:clamp(20px,4vw,56px)}
+.hero .stats b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,52px);line-height:1;color:var(--champagne)}
+.cards{position:absolute;right:clamp(0px,6vw,120px);top:50%;width:min(44vw,640px);height:min(74vh,700px);transform:translateY(-54%);z-index:1;pointer-events:none}
+.cards figure{position:absolute;width:46%;aspect-ratio:1200/1490;box-shadow:0 50px 90px -20px rgba(0,0,0,.8),0 0 0 1px rgba(232,210,173,.08);will-change:transform}
+.cards figure img{width:100%;height:100%;object-fit:cover}
+.cards .k1{left:0;top:18%;transform:rotate(-10deg)}
+.cards .k2{left:27%;top:0;width:52%;z-index:2}
+.cards .k3{right:0;top:22%;transform:rotate(9deg)}
+.scroll-hint{position:absolute;right:var(--g);top:110px;z-index:3;writing-mode:vertical-rl;letter-spacing:.4em}
 
-.eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
-.rule{height:1px;background:linear-gradient(90deg,transparent,var(--rose),transparent);border:0}
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:clamp(14px,2vw,26px) 0;white-space:nowrap}
+.marquee .track{display:inline-flex;gap:3.5vw;padding-right:3.5vw;will-change:transform}
+.marquee span{font-family:var(--serif);font-size:clamp(48px,8vw,130px);line-height:1;color:transparent;-webkit-text-stroke:1px var(--muted);display:inline-block}
+.marquee span:nth-of-type(even){color:var(--fg);-webkit-text-stroke:0;font-style:italic}
+.marquee em{font-style:normal;color:var(--accent);font-family:var(--serif);font-size:clamp(30px,4vw,60px);align-self:center}
 
-.hero{min-height:100svh;position:relative;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;
-  gap:var(--gutter);padding:120px var(--gutter) 80px;overflow:hidden;isolation:isolate}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(42vmax 42vmax at var(--mx,70%) var(--my,45%), rgba(207,159,130,.22), transparent 60%),
-             radial-gradient(60vmax 50vmax at 10% 110%, rgba(107,74,58,.35), transparent 70%)}
-.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(54px,8vw,150px);line-height:.88;letter-spacing:-.02em;font-optical-sizing:auto}
-.hero h1 .it{font-style:italic;color:var(--accent);font-weight:400}
-.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
-.hero h1 .ln>span{display:inline-block;transform:translateY(110%);transition:transform 1.4s var(--ease)}
-.ready .hero h1 .ln>span{transform:none}
-.ready .hero h1 .ln:nth-child(2)>span{transition-delay:.12s}
-.ready .hero h1 .ln:nth-child(3)>span{transition-delay:.24s}
-.hero .th{font-family:var(--thai);font-weight:300;font-size:clamp(18px,2vw,26px);margin-top:28px;color:var(--champagne);letter-spacing:.02em}
-.hero .meta{display:flex;flex-wrap:wrap;gap:12px 36px;margin-top:40px}
-.hero .meta div{border-top:1px solid var(--line);padding-top:10px;min-width:120px}
-.hero .meta b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;color:var(--fg)}
-.fade{opacity:0;transform:translateY(18px);transition:opacity 1.2s var(--ease) .5s, transform 1.2s var(--ease) .5s}
-.ready .fade{opacity:1;transform:none}
+.manifesto{padding:clamp(110px,16vw,220px) var(--g)}
+.manifesto p.big{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5.2vw,88px);line-height:1.08;letter-spacing:-.01em;max-width:18ch}
+.manifesto p.thx{font-family:var(--thai);font-weight:300;font-size:clamp(20px,2.4vw,34px);line-height:1.55;margin-top:clamp(36px,5vw,64px);max-width:28ch;margin-left:auto}
+.manifesto .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g);margin-top:clamp(70px,9vw,120px);border-top:1px solid var(--line);padding-top:26px}
+.manifesto .meta b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;margin:8px 0}
+.manifesto .meta p{font-family:var(--body);font-weight:300;color:var(--muted);font-size:15px}
 
-.fan{position:relative;height:min(78svh,720px);perspective:1400px}
-.fan figure{position:absolute;left:50%;top:50%;width:min(31vw,380px);aspect-ratio:1200/1490;
-  transform:translate(-50%,-50%) rotate(0) scale(.86);opacity:0;
-  transition:transform 1.6s var(--ease), opacity 1s var(--ease);box-shadow:0 40px 80px -20px rgba(0,0,0,.75), 0 0 0 1px rgba(232,210,173,.08)}
-.fan figure img{width:100%;height:100%;object-fit:cover}
-.ready .fan figure{opacity:1}
-.ready .fan .c1{transform:translate(-112%,-46%) rotate(-11deg) scale(.82)}
-.ready .fan .c2{transform:translate(-50%,-52%) rotate(0) scale(1);z-index:2}
-.ready .fan .c3{transform:translate(12%,-46%) rotate(11deg) scale(.82)}
-.fan .inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .6s var(--ease)}
-
-.scroll-cue{position:absolute;left:50%;transform:translateX(-50%);bottom:24px;flex-direction:column;display:flex;gap:14px;align-items:center}
-.scroll-cue span{width:1px;height:46px;background:var(--line);position:relative;overflow:hidden}
-.scroll-cue span::after{content:"";position:absolute;inset:0;background:var(--champagne);animation:cue 2.2s var(--ease) 3}
-@keyframes cue{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
-
-.marquee{border-block:1px solid var(--line);overflow:hidden;padding:clamp(14px,2vw,26px) 0;white-space:nowrap}
-.marquee .track{display:inline-flex;gap:4vw;animation:slide 38s linear infinite;padding-left:4vw}
-.marquee span{font-family:var(--serif);font-size:clamp(44px,8vw,120px);line-height:1;font-weight:400;
-  color:transparent;-webkit-text-stroke:1px var(--muted)}
-.marquee span.fill{color:var(--fg);-webkit-text-stroke:0;font-style:italic}
-@keyframes slide{to{transform:translateX(-50%)}}
-
-section.block{padding:clamp(90px,14vw,180px) var(--gutter)}
-.idea{display:grid;grid-template-columns:1fr 1.4fr;gap:var(--gutter)}
-.idea h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,92px);line-height:.95;letter-spacing:-.01em}
-.idea h2 i{color:var(--accent)}
-.idea .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);align-self:end}
-.idea .cols div{border-top:1px solid var(--line);padding-top:18px}
-.idea .cols h3{font-family:var(--serif);font-weight:400;font-size:24px;margin:10px 0 12px}
-.idea .cols p{font-family:"Anuphan",var(--sans);font-weight:300;font-size:15.5px;color:var(--muted)}
-.quote{margin-top:clamp(70px,9vw,130px);font-family:var(--thai);font-weight:200;font-size:clamp(28px,4.4vw,64px);line-height:1.35;max-width:22ch}
-.quote em{font-style:italic;color:var(--accent)}
-
-.chapter{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:var(--gutter);
-  padding:clamp(80px,10vw,140px) var(--gutter);position:relative;overflow:hidden}
-.chapter:nth-of-type(even) .visual{order:2}
-.chapter .ghost{position:absolute;inset:auto 0 -.12em 0;text-align:center;font-family:var(--serif);font-weight:400;
-  font-size:clamp(90px,22vw,360px);line-height:1;color:transparent;-webkit-text-stroke:1px var(--line);
-  pointer-events:none;white-space:nowrap;transform:translateX(var(--shift,0));will-change:transform}
-.visual{position:relative;justify-self:center;width:min(100%,520px)}
-.visual .frame{position:relative;aspect-ratio:1200/1490;overflow:hidden;cursor:zoom-in;
-  box-shadow:0 50px 100px -30px rgba(0,0,0,.6);transform:perspective(1200px) rotateX(var(--rx,0)) rotateY(var(--ry,0));
-  transition:transform .5s var(--ease), clip-path 1.6s var(--ease);clip-path:inset(12% 12% 12% 12%)}
-.visual .frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.25);transition:transform 2s var(--ease)}
-.chapter.in .visual .frame{clip-path:inset(0 0 0 0)}
-.chapter.in .visual .frame img{transform:scale(1)}
-.visual .tag{position:absolute;top:-28px;left:0;right:0;display:flex;justify-content:space-between}
-.copy{max-width:520px;position:relative;z-index:1}
-.copy .num{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--accent)}
-.copy h3{font-family:var(--serif);font-weight:400;font-size:clamp(54px,7.5vw,118px);line-height:.9;letter-spacing:-.01em;margin:10px 0 6px}
-.copy .product{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
-.copy .thai{font-family:var(--thai);font-weight:300;font-size:clamp(24px,2.6vw,36px);margin:34px 0 26px;padding:18px 0;
-  border-block:1px solid var(--line);line-height:1.5}
-.copy p{font-family:"Anuphan",var(--sans);font-weight:300;font-size:16px;color:var(--muted)}
-.copy dl{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;margin-top:28px;font-size:13px}
-.copy dt{letter-spacing:.24em;text-transform:uppercase;font-size:10.5px;color:var(--muted);padding-top:3px}
-.copy dd{font-family:"Anuphan",var(--sans)}
-.swatches{display:flex;gap:8px;margin-top:26px}
-.swatches i{width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 1.2s var(--ease), transform 1.2s var(--ease)}
-.in .reveal,.reveal.in{opacity:1;transform:none}
-.in .reveal:nth-child(2){transition-delay:.08s}.in .reveal:nth-child(3){transition-delay:.16s}
-.in .reveal:nth-child(4){transition-delay:.24s}.in .reveal:nth-child(5){transition-delay:.32s}.in .reveal:nth-child(6){transition-delay:.4s}
-
-.lineup{padding:clamp(90px,12vw,160px) 0}
-.lineup header{padding:0 var(--gutter);display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
-.lineup h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6.5vw,100px);line-height:.95}
-.lineup h2 i{color:var(--accent)}
-.wall{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1.2vw,18px);padding:0 var(--gutter)}
-.wall button{all:unset;cursor:zoom-in;position:relative;overflow:hidden;aspect-ratio:1200/1490;display:block}
-.wall img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease), filter .8s}
-.wall:hover img{filter:saturate(.6) brightness(.7)}
-.wall button:hover img,.wall button:focus-visible img{filter:none;transform:scale(1.05)}
-.wall button:focus-visible{outline:1px solid var(--champagne);outline-offset:4px}
-.wall .cap{position:absolute;left:12px;bottom:10px;font-size:10px;letter-spacing:.3em;color:#f5ede2;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-
-.system{display:grid;grid-template-columns:1fr 1fr;gap:var(--gutter)}
-.system h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6vw,92px);line-height:.95}
-.system h2 i{color:var(--accent)}
-.palette{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:40px}
-.palette div{aspect-ratio:3/5;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  transition:transform .6s var(--ease)}
-.palette div:hover{transform:translateY(-10px)}
-.palette b{display:block;font-family:var(--serif);font-weight:400;font-size:15px;letter-spacing:0;text-transform:none;margin-bottom:2px}
-.specimen{display:grid;gap:22px}
-.specimen .row{border-top:1px solid var(--line);padding-top:18px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:18px}
-.specimen .big{font-family:var(--serif);font-size:clamp(70px,9vw,140px);line-height:.9}
-.specimen .bigth{font-family:var(--thai);font-weight:200;font-size:clamp(60px,8vw,120px);line-height:1}
-.specimen .small{font-size:11px;letter-spacing:.3em;text-transform:uppercase}
-.specimen .label{font-size:11px;color:var(--muted);text-align:right;line-height:1.5}
-.rules{list-style:none;margin-top:36px;display:grid;gap:14px;counter-reset:r}
-.rules li{counter-increment:r;display:grid;grid-template-columns:44px 1fr;font-family:"Anuphan",var(--sans);font-weight:300;color:var(--muted)}
-.rules li::before{content:"0" counter(r);font-family:var(--serif);font-style:italic;color:var(--accent)}
-
-.contact{min-height:90svh;display:grid;place-items:center;text-align:center;padding:120px var(--gutter);position:relative;overflow:hidden}
-.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(52px,10vw,170px);line-height:.9;letter-spacing:-.02em}
-.contact h2 i{color:var(--accent)}
-.contact .who{font-family:var(--thai);font-weight:300;font-size:clamp(20px,2.2vw,30px);margin:34px 0 10px}
-.contact .role{margin:34px 0 42px}
-.qr{display:block;margin:0 auto 36px;text-align:center}
-.qr img{width:min(200px,52vw);height:auto;padding:14px;background:#fff;border-radius:18px;box-shadow:0 0 0 1px var(--line),0 30px 60px -20px rgba(0,0,0,.6),0 0 60px rgba(207,159,130,.18);margin:0 auto 14px}
-.btn{display:inline-flex;align-items:center;gap:14px;padding:18px 34px;border:1px solid var(--champagne);border-radius:999px;
-  text-decoration:none;font-size:12px;letter-spacing:.3em;text-transform:uppercase;position:relative;overflow:hidden;isolation:isolate;transition:color .5s var(--ease)}
-.btn::before{content:"";position:absolute;inset:0;background:var(--champagne);transform:translateY(101%);transition:transform .6s var(--ease);z-index:-1}
-.btn:hover{color:var(--espresso)}
-.btn:hover::before{transform:none}
-footer{padding:30px var(--gutter) 40px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line)}
-footer p{max-width:70ch;font-family:"Anuphan",var(--sans);font-weight:300}
-
-.index{padding:clamp(90px,12vw,160px) var(--gutter)}
-.index header{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:40px}
-.index h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6.5vw,100px);line-height:.95}
-.index h2 i{color:var(--accent)}
+.index{padding:clamp(90px,12vw,160px) var(--g)}
+.index header,.wallsec header{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:44px}
+.h2{font-family:var(--serif);font-weight:400;font-size:clamp(48px,7vw,116px);line-height:.92;letter-spacing:-.02em}
+.h2 i{color:var(--accent);font-style:italic}
 .rows{list-style:none;border-bottom:1px solid var(--line)}
-.rows a{display:grid;grid-template-columns:70px 1.3fr 1.4fr 90px;align-items:baseline;gap:20px;padding:26px 0;border-top:1px solid var(--line);text-decoration:none;
-  transition:padding .6s var(--ease), color .4s}
-.rows a:hover{padding-left:18px;color:var(--accent)}
+.rows li{position:relative;z-index:0}
+.rows a{display:grid;grid-template-columns:70px 1.25fr 1.4fr 80px;align-items:center;gap:20px;padding:clamp(18px,2.6vw,30px) 12px;border-top:1px solid var(--line);position:relative;overflow:hidden;transition:color .5s var(--ease)}
+.rows a::before{content:"";position:absolute;inset:0;background:var(--fg);transform:scaleY(0);transform-origin:bottom;transition:transform .6s var(--ease);z-index:-1}
+.rows a:hover::before{transform:scaleY(1)}
+.rows a:hover,.rows a:hover .s,.rows a:hover .c,.rows a:hover .n{color:var(--espresso)}
 .rows .n{font-family:var(--serif);font-style:italic;color:var(--accent)}
-.rows .b{font-family:var(--serif);font-size:clamp(30px,4.2vw,64px);line-height:1}
-.rows .s{font-family:"Anuphan",var(--sans);font-weight:300;color:var(--muted);font-size:15px}
+.rows .b{font-size:clamp(34px,4.6vw,72px);line-height:1;transition:transform .6s var(--ease)}
+.rows a:hover .b{transform:translateX(14px)}
+.rows .s{font-family:var(--body);font-weight:300;color:var(--muted);font-size:15px}
 .rows .c{text-align:right;font-size:11px;letter-spacing:.24em;color:var(--muted)}
-.peek{position:fixed;left:0;top:0;width:240px;aspect-ratio:1200/1490;pointer-events:none;z-index:70;opacity:0;
-  transform:translate(-50%,-50%) scale(.85) rotate(-4deg);transition:opacity .4s var(--ease), transform .6s var(--ease);overflow:hidden;
-  box-shadow:0 40px 80px -20px rgba(0,0,0,.6)}
-.peek.on{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-4deg)}
-.peek img{width:100%;height:100%;object-fit:cover}
-.project-tag{display:flex;gap:14px;align-items:center;margin-bottom:26px}
-.project-tag b{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);font-size:20px}
+.f-scb{font-family:"Bodoni Moda",serif}
+.f-sri{font-family:"Cormorant Garamond",serif;font-weight:300;letter-spacing:.06em;text-transform:uppercase}
+.f-4u2{font-family:"Rubik Bubbles",system-ui;letter-spacing:.02em}
+.f-mis{font-family:"Anton",sans-serif;text-transform:uppercase;font-style:italic;letter-spacing:.01em}
+.f-cat{font-family:"Pinyon Script",cursive}
+.peek{position:fixed;left:0;top:0;width:clamp(200px,19vw,300px);aspect-ratio:1200/1490;pointer-events:none;z-index:120;overflow:hidden;opacity:0;transform:translate(-50%,-50%) scale(.6);
+  box-shadow:0 40px 90px -20px rgba(0,0,0,.65);border-radius:2px}
+.peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
-.project{padding:clamp(100px,13vw,180px) var(--gutter);position:relative;overflow:hidden}
-.project .head{display:grid;grid-template-columns:1.2fr 1fr;gap:var(--gutter);align-items:end;margin-bottom:clamp(50px,7vw,90px);position:relative}
-.project .brand{font-family:var(--serif);font-weight:400;font-size:clamp(64px,11vw,190px);line-height:.85;letter-spacing:-.02em}
-.project .dir{font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.4vw,34px);margin:16px 0 0;color:var(--accent)}
-.project .about p{font-family:"Anuphan",var(--sans);font-weight:300;color:var(--muted);font-size:16px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
-.chips span{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,48px);align-items:start;position:relative;max-width:1180px;margin:0 auto}
-.pair figure:nth-child(2){margin-top:clamp(40px,8vw,140px)}
-.pf{position:relative;overflow:hidden;cursor:zoom-in;aspect-ratio:1200/1490;box-shadow:0 50px 100px -30px rgba(0,0,0,.45);
-  clip-path:inset(10% 10% 10% 10%);transition:clip-path 1.6s var(--ease)}
-.pf.sq{aspect-ratio:1/1}
-.pf img{width:100%;height:100%;object-fit:cover;transform:scale(1.22);transition:transform 2s var(--ease)}
-.project.in .pf{clip-path:inset(0)}
-.project.in .pf img{transform:scale(1)}
-.project.in .pf:hover img{transform:scale(1.04)}
-.pair figcaption{display:flex;justify-content:space-between;gap:14px;margin-top:16px;align-items:baseline}
-.pair figcaption b{font-family:var(--serif);font-weight:400;font-size:22px}
-.pair figcaption span{font-family:"Anuphan",var(--sans);font-weight:300;font-size:14px;color:var(--muted);text-align:right}
-.project .ghost{position:absolute;top:30px;right:-.05em;font-family:var(--serif);font-size:clamp(120px,24vw,420px);line-height:1;color:transparent;
-  -webkit-text-stroke:1px var(--line);pointer-events:none;white-space:nowrap}
+.hs{position:relative;overflow:hidden}
+.hs .track{display:flex;align-items:center;gap:clamp(40px,6vw,110px);padding:0 var(--g);height:100svh;width:max-content;will-change:transform}
+.hs .intro{width:min(560px,80vw);flex:none}
+.hs .intro .tag{display:flex;gap:14px;align-items:center;margin-bottom:24px}
+.hs .intro .tag b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;color:var(--accent)}
+.hs .intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(54px,7vw,120px);line-height:.88;letter-spacing:-.02em}
+.hs .intro h2 i{color:var(--accent)}
+.hs .intro p{font-family:var(--body);font-weight:300;color:var(--muted);margin-top:26px;font-size:16px;max-width:42ch}
+.hs .intro .q{font-family:var(--thai);font-weight:200;font-size:clamp(24px,2.6vw,38px);color:var(--fg);line-height:1.4;margin-top:30px}
+.hs .intro .q em{color:var(--accent);font-style:normal}
+.panel{flex:none;width:min(36vw,480px);position:relative}
+.panel .frame{aspect-ratio:1200/1490;overflow:hidden;cursor:zoom-in;box-shadow:0 60px 110px -30px rgba(0,0,0,.7)}
+.panel .frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.18)}
+.panel .cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;gap:14px}
+.panel .cap b{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.4vw,40px);line-height:1}
+.panel .cap span{font-family:var(--thai);font-weight:300;color:var(--muted);text-align:right}
+.panel .no{position:absolute;top:-58px;left:0;font-family:var(--serif);font-style:italic;color:var(--accent);font-size:20px}
+.panel.sys{width:min(520px,80vw)}
+.sys .sw{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
+.sys .sw div{aspect-ratio:1;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;font-size:10px;letter-spacing:.12em}
+.sys .sw b{font-family:var(--serif);font-weight:400;font-size:15px;letter-spacing:0}
+.sys .spec{font-family:var(--serif);font-size:clamp(70px,8vw,130px);line-height:1;margin-top:22px}
+.sys .spec i{color:var(--accent)}
+.sys .specth{font-family:var(--thai);font-weight:200;font-size:clamp(40px,5vw,80px);line-height:1.2}
 
-.voices{padding:clamp(100px,13vw,180px) var(--gutter);text-align:center}
-.voices h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.5vw,84px);line-height:1;margin-bottom:50px}
-.voices h2 i{color:var(--accent)}
-.voices ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 28px;max-width:1200px;margin:0 auto}
-.voices li{font-family:var(--serif);font-size:clamp(30px,4.6vw,72px);line-height:1.15;cursor:default;transition:color .4s, opacity .4s}
-.voices li:nth-child(even){font-style:italic;color:var(--accent)}
-.voices ul:hover li{opacity:.28}
-.voices ul li:hover{opacity:1}
+.brand{position:relative;padding:clamp(100px,13vw,170px) var(--g);display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,6vw,110px);align-items:start;overflow:hidden}
+.brand .side{position:sticky;top:110px}
+.brand .tag{display:flex;gap:14px;align-items:center;margin-bottom:20px}
+.brand .tag b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:20px;color:var(--accent)}
+.brand .name{font-size:clamp(70px,10.5vw,190px);line-height:.95;color:var(--fg);font-weight:400}
+.brand .dir{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.2vw,32px);color:var(--accent);margin-top:14px}
+.brand .thai{margin-top:30px;font-size:clamp(24px,2.6vw,40px);line-height:1.35}
+.brand .about{font-family:var(--body);font-weight:300;color:var(--muted);margin-top:22px;max-width:46ch}
+.brand .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.brand .chips span{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.brand .dots{display:flex;gap:8px;margin-top:24px}
+.brand .dots i{width:28px;height:28px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.brand .shots{display:grid;gap:clamp(30px,5vw,80px)}
+.brand .shots figure:nth-child(2){width:82%;margin-left:auto}
+.shot .frame{overflow:hidden;cursor:zoom-in;aspect-ratio:1200/1490;box-shadow:0 60px 110px -30px rgba(0,0,0,.5)}
+.shot .frame.sq{aspect-ratio:1/1}
+.shot .frame img{width:100%;height:100%;object-fit:cover}
+.shot figcaption{display:flex;justify-content:space-between;gap:14px;margin-top:14px;align-items:baseline}
+.shot figcaption b{font-family:var(--serif);font-weight:400;font-size:22px}
+.shot figcaption span{font-family:var(--body);font-weight:300;color:var(--muted);font-size:14px;text-align:right}
+.brand .ghost{position:absolute;left:-.04em;bottom:-.18em;font-size:clamp(140px,26vw,460px);line-height:1;color:transparent;-webkit-text-stroke:1px var(--line);pointer-events:none;white-space:nowrap;z-index:0}
+.brand > *:not(.ghost){position:relative;z-index:1}
+.brand .side{position:sticky}
+.sri .name{font-size:clamp(52px,7.2vw,140px);color:#e3c583;text-shadow:0 0 50px rgba(212,175,106,.35),0 1px 0 rgba(255,240,200,.25)}
+.sri .thai{font-family:"Trirong",serif;font-weight:300}
+.u42 .name{color:#ff5c8a;text-shadow:0 4px 0 #d23c6b,0 9px 0 #a8274f,0 18px 30px rgba(168,39,79,.35)}
+.u42 .thai{font-family:"Mitr",sans-serif;font-weight:600;color:#c2185b}
+.mis .name{color:#0b3550;letter-spacing:-.01em}
+.mis .name .w .ch:nth-child(odd){color:#e2560f}
+.mis .thai{font-family:"Kanit",sans-serif;font-weight:800;font-style:italic}
+.cat .name{color:#7d5bc4;text-shadow:0 0 30px rgba(233,167,216,.55),0 0 2px rgba(255,255,255,.6);padding-right:.2em}
+.cat .thai{font-family:"Charm",cursive;font-weight:700}
 
-.lightbox{position:fixed;inset:0;z-index:120;background:rgba(10,6,4,.94);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .5s var(--ease);backdrop-filter:blur(8px)}
+.voices{padding:clamp(110px,14vw,200px) var(--g);text-align:center}
+.voices ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:6px clamp(18px,3vw,44px);max-width:1300px;margin:50px auto 0}
+.voices li{font-size:clamp(32px,4.8vw,80px);line-height:1.15;cursor:default;transition:filter .5s var(--ease),color .5s}
+.voices ul:hover li{filter:opacity(.2)}
+.voices ul li:hover{filter:none;color:var(--accent)}
+.v1{font-family:"Bodoni Moda",serif}
+.v2{font-family:"Cormorant Garamond",serif;font-weight:300;text-transform:uppercase;letter-spacing:.08em}
+.v3{font-family:"Jost",sans-serif;font-weight:200;letter-spacing:.06em}
+.v4{font-family:"Rubik Bubbles",system-ui}
+.v5{font-family:"Playfair Display",serif;font-style:italic}
+.v6{font-family:"Italiana",serif}
+.v7{font-family:"Anton",sans-serif;text-transform:uppercase;font-style:italic}
+.v8{font-family:"Bebas Neue",sans-serif;letter-spacing:.04em}
+.v9{font-family:"Pinyon Script",cursive}
+.v10{font-family:"Unbounded",sans-serif;font-weight:900;letter-spacing:-.03em}
+
+.wallsec{padding:clamp(90px,12vw,160px) var(--g)}
+.wall{columns:4 260px;column-gap:clamp(10px,1.4vw,20px)}
+.wall button{all:unset;display:block;width:100%;margin-bottom:clamp(10px,1.4vw,20px);cursor:zoom-in;overflow:hidden;position:relative;break-inside:avoid}
+.wall img{width:100%;height:auto;transition:transform 1.2s var(--ease)}
+.wall button:hover img{transform:scale(1.06)}
+.wall button:focus-visible{outline:1px solid var(--champagne);outline-offset:4px}
+.wall .cap{position:absolute;left:12px;bottom:10px;font-size:10px;font-weight:600;letter-spacing:.28em;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.6);opacity:0;transform:translateY(8px);transition:.5s var(--ease)}
+.wall button:hover .cap{opacity:1;transform:none}
+
+.contact{min-height:100svh;display:grid;align-content:center;justify-items:center;text-align:center;padding:130px var(--g) 0;position:relative;overflow:hidden}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(60px,11vw,200px);line-height:.86;letter-spacing:-.03em}
+.contact h2 i{color:var(--accent)}
+.contact .role{margin:30px 0 40px}
+.qr{display:inline-block;background:#fff;padding:14px;border-radius:20px;box-shadow:0 0 0 1px var(--line),0 40px 80px -24px rgba(0,0,0,.7),0 0 90px rgba(207,159,130,.22)}
+.qr img{width:min(190px,48vw);height:auto}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:20px 38px;margin-top:30px;border-radius:999px;background:var(--champagne);color:var(--espresso);font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;will-change:transform}
+.btn span{transition:transform .5s var(--ease)}
+.btn:hover span{transform:translateX(6px)}
+.contact .marquee{width:100vw;margin-top:clamp(70px,10vw,120px)}
+footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:26px var(--g) 34px;font-size:11.5px;color:var(--muted)}
+
+.cursor{position:fixed;left:0;top:0;z-index:250;pointer-events:none;display:none}
+.cursor .dot{position:absolute;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#f5ede2;mix-blend-mode:difference}
+.cursor .ring{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:1px solid rgba(245,237,226,.6);mix-blend-mode:difference;
+  display:grid;place-items:center;transition:width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease),background .45s}
+.cursor .ring b{font-size:9.5px;font-weight:700;letter-spacing:.22em;color:#120b08;opacity:0;transition:opacity .3s}
+.cursor.big .ring{width:96px;height:96px;margin:-48px 0 0 -48px;background:#f5ede2}
+.cursor.big .ring b{opacity:1}
+@media (pointer:fine){.cursor{display:block}}
+
+.lightbox{position:fixed;inset:0;z-index:260;background:rgba(10,6,4,.95);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .5s var(--ease);backdrop-filter:blur(10px)}
 .lightbox.open{opacity:1;pointer-events:auto}
-.lightbox img{max-height:90svh;max-width:92vw;width:auto;box-shadow:0 40px 120px rgba(0,0,0,.8);transform:scale(.94);transition:transform .7s var(--ease)}
+.lightbox img{max-height:88svh;max-width:92vw;width:auto;box-shadow:0 40px 120px rgba(0,0,0,.8);transform:scale(.94);transition:transform .8s var(--ease)}
 .lightbox.open img{transform:none}
-.lightbox button{all:unset;cursor:pointer;position:absolute;color:#e8d2ad;font-size:11px;letter-spacing:.3em;text-transform:uppercase;padding:14px}
-.lightbox .x{top:14px;right:var(--gutter)}
-.lightbox .prev{left:var(--gutter);top:50%}
-.lightbox .next{right:var(--gutter);top:50%}
+.lightbox button{background:none;border:0;cursor:pointer;position:absolute;color:#e8d2ad;font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;padding:14px}
+.lightbox .x{top:14px;right:var(--g)}
+.lightbox .prev{left:var(--g);top:50%}
+.lightbox .next{right:var(--g);top:50%}
 .lightbox .count{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-family:var(--serif);font-style:italic;color:#e8d2ad}
-
-.cursor{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;border:1px solid #f5ede2;pointer-events:none;z-index:110;
-  mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),background .4s;display:none;
-  font-size:9px;letter-spacing:.24em;color:#120b08;align-items:center;justify-content:center;text-transform:uppercase}
-.cursor.big{width:86px;height:86px;background:#f5ede2}
-@media (pointer:fine){.cursor{display:flex}}
 
 @media (max-width:900px){
   nav ul{display:none}
-  .hero{grid-template-columns:1fr;padding-top:84px;gap:0;min-height:auto}
-  .fan{height:min(54vh,430px);order:-1}
-  .fan figure{width:min(52vw,300px)}
-  .idea,.system{grid-template-columns:1fr}
-  .idea .cols{grid-template-columns:1fr}
-  .chapter{grid-template-columns:1fr;min-height:auto}
-  .chapter:nth-of-type(even) .visual{order:0}
-  .visual{width:min(100%,440px)}
-  .rows a{grid-template-columns:44px 1fr;gap:4px 14px}
+  .cards{right:-12vw;width:92vw;height:56vh;top:36%;opacity:.95}
+  .hero::after{background:linear-gradient(0deg,rgba(18,11,8,1) 8%,rgba(18,11,8,.55) 45%,rgba(18,11,8,.15))}
+  .hero h1 .l2{padding-left:.4em}
+  .scroll-hint{display:none}
+  .manifesto .meta{grid-template-columns:1fr}
+  .rows a{grid-template-columns:40px 1fr;gap:4px 12px}
   .rows .s{grid-column:2}
   .rows .c{display:none}
   .peek{display:none}
-  .project .head{grid-template-columns:1fr}
-  .pair{grid-template-columns:1fr}
-  .pair figure:nth-child(2){margin-top:0}
-  .wall{grid-template-columns:repeat(5,72vw);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
-  .wall button{scroll-snap-align:center}
-  .palette{grid-template-columns:repeat(3,1fr)}
-  .scroll-cue{display:none}
+  .hs .track{flex-direction:column;align-items:stretch;height:auto;width:auto;padding:clamp(90px,14vw,140px) var(--g)}
+  .panel,.panel.sys,.hs .intro{width:100%}
+  .panel .no{position:static;display:block;margin-bottom:10px}
+  .brand{grid-template-columns:1fr}
+  .brand .side{position:relative;top:auto}
+  .brand .shots figure:nth-child(2){width:100%}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
@@ -302,285 +266,218 @@ footer p{max-width:70ch;font-family:"Anuphan",var(--sans);font-weight:300}
 </head>
 <body>
 <div class="loader" id="loader" aria-hidden="true">
-  <svg viewBox="0 0 120 90"><path d="M52 18c-6-8-30-9-32 6-2 16 34 14 32 32-2 16-28 16-34 6"/><path d="M100 22c-6-8-14-11-22-10-14 2-22 14-22 30s8 30 22 32c9 1 17-3 22-10"/></svg>
+  <div class="cols"><span></span><span></span><span></span><span></span></div>
+  <div class="center"><div class="stack" id="stack"></div></div>
+  <p class="eyebrow tag">Beauty by Design — Portfolio 2026</p>
+  <div class="count"><span id="count">000</span></div>
 </div>
 <div class="grain" aria-hidden="true"></div>
 <div class="progress" id="progress"></div>
-<div class="cursor" id="cursor"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><div class="ring"><b id="cursorLabel">View</b></div><div class="dot"></div></div>
 <div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
 
 <nav>
-  <a class="mark" href="#top">Beauty <i>by design</i></a>
+  <a class="mark" href="#top" data-scroll>Beauty <i>by design</i></a>
   <ul>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#idea">Scbrush</a></li>
-    <li><a href="#p-srichand">Brands</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#work" data-scroll>Work</a></li>
+    <li><a href="#scbrush" data-scroll>Scbrush</a></li>
+    <li><a href="#voices" data-scroll>Styles</a></li>
+    <li><a href="#contact" data-scroll>Contact</a></li>
   </ul>
 </nav>
 
 <main id="top">
-<section class="hero" id="hero" data-bg="#120b08" data-fg="#e8d2ad">
-  <div>
-    <p class="eyebrow fade">Graphic Design Portfolio — Beauty &amp; Cosmetics</p>
-    <h1>
-      <span class="ln"><span>Beauty,</span></span>
-      <span class="ln"><span class="it">by</span></span>
-      <span class="ln"><span>Design.</span></span>
+<section class="hero" data-bg="#120b08" data-fg="#e8d2ad">
+  <canvas id="gloss" aria-hidden="true"></canvas>
+  <div class="cards" id="cards" aria-hidden="true">
+    <figure class="k1"><img src="img/srichand-heritage.webp" alt=""></figure>
+    <figure class="k2"><img src="img/cookie.webp" alt=""></figure>
+    <figure class="k3"><img src="img/4u2-pop.webp" alt=""></figure>
+  </div>
+  <div class="copy">
+    <p class="eyebrow hero-in">Graphic Design Portfolio — Beauty &amp; Cosmetics</p>
+    <h1 aria-label="Beauty, by Design.">
+      <span class="wrap-line"><span class="split" data-split="chars">Beauty,</span></span>
+      <span class="wrap-line l2"><i class="split" data-split="chars">by</i> <span class="split" data-split="chars">Design.</span></span>
     </h1>
-    <p class="th fade">งานออกแบบคีย์วิชวลสายความงาม 5 แบรนด์<br>ตั้งแต่หรูแบบยั้งมือ ไปจนถึงป๊อปสุดฉ่ำและแบนเนอร์ขายของ</p>
-    <div class="meta fade">
-      <div><span class="eyebrow">Brands</span><b>05</b></div>
-      <div><span class="eyebrow">Key Visuals</span><b>13</b></div>
-      <div><span class="eyebrow">Styles</span><b>10</b></div>
+    <div class="sub">
+      <p class="th hero-in">งานออกแบบคีย์วิชวลสายความงาม 5 แบรนด์ ตั้งแต่หรูแบบยั้งมือ ไปจนถึงป๊อปสุดฉ่ำและแบนเนอร์ขายของ</p>
+      <div class="stats hero-in">
+        <div><b>05</b><span class="eyebrow">Brands</span></div>
+        <div><b>13</b><span class="eyebrow">Key Visuals</span></div>
+        <div><b>10</b><span class="eyebrow">Styles</span></div>
+      </div>
     </div>
   </div>
-  <div class="fan" id="fan" aria-hidden="true">
-    <div class="inner" id="fanInner">
-      <figure class="c1"><img src="img/srichand-heritage.webp" alt=""></figure>
-      <figure class="c2"><img src="img/cookie.webp" alt=""></figure>
-      <figure class="c3"><img src="img/4u2-pop.webp" alt=""></figure>
-    </div>
-  </div>
-  <div class="scroll-cue eyebrow"><span></span>Scroll</div>
+  <span class="eyebrow scroll-hint">Scroll to explore</span>
 </section>
 
 <div class="marquee" aria-hidden="true">
-  <div class="track">
-    <span>Scbrush</span><span class="fill">Srichand</span><span>4U2</span><span class="fill">Mistine</span><span>Cathy Doll</span>
-    <span>Scbrush</span><span class="fill">Srichand</span><span>4U2</span><span class="fill">Mistine</span><span>Cathy Doll</span>
-  </div>
+  <div class="track"><span>Scbrush</span><em>✦</em><span>Srichand</span><em>✦</em><span>4U2</span><em>✦</em><span>Mistine</span><em>✦</em><span>Cathy Doll</span><em>✦</em></div>
 </div>
+
+<section class="manifesto" data-bg="#120b08" data-fg="#e8d2ad">
+  <p class="eyebrow" style="margin-bottom:30px">Manifesto</p>
+  <p class="big split" data-split="words">Beauty is sold before it is touched. I design the gloss, the powder, the light and the type — so people can almost feel it through the screen.</p>
+  <p class="thx split" data-split="words">ความงาม ถูกขาย ก่อนถูกสัมผัส งานของผมคือ ทำให้คนรู้สึกถึง เนื้อสัมผัส ผ่านหน้าจอ</p>
+  <div class="meta">
+    <div><span class="eyebrow">01 — Art Direction</span><b>Mood &amp; Tone</b><p>วางอารมณ์ภาพให้ตรงบุคลิกแบรนด์ ตั้งแต่หรูโทนมืดจนถึงป๊อป Gen Z</p></div>
+    <div><span class="eyebrow">02 — Typography</span><b>Type that speaks</b><p>เลือกและจับคู่ฟอนต์ไทย-อังกฤษให้แต่ละแบรนด์มีน้ำเสียงของตัวเอง</p></div>
+    <div><span class="eyebrow">03 — Commerce</span><b>Built to sell</b><p>คีย์วิชวลแคมเปญ แบนเนอร์ Shopee / Lazada / TikTok Shop และภาพรีทัชสินค้า</p></div>
+  </div>
+</section>
 
 <section class="index" id="work" data-bg="#120b08" data-fg="#e8d2ad">
   <header>
-    <h2 class="reveal">Selected<br><i>work.</i></h2>
-    <p class="eyebrow reveal">5 brands · 13 key visuals</p>
+    <h2 class="h2"><span class="wrap-line"><span class="split" data-split="chars">Selected</span></span><span class="wrap-line"><i class="split" data-split="chars">work.</i></span></h2>
+    <p class="eyebrow">5 brands · 13 key visuals</p>
   </header>
-  <ol class="rows reveal">
-    <li><a href="#idea" data-peek="cookie"><span class="n">01</span><span class="b">Scbrush</span><span class="s">The Chocolate Collection · หรูโทนมืด, บิวตี้พอร์ตเทรต</span><span class="c">05 KV</span></a></li>
-    <li><a href="#p-srichand" data-peek="srichand-heritage"><span class="n">02</span><span class="b">Srichand</span><span class="s">Thai Heritage · มรดกไทย, มินิมอลเบาหวิว</span><span class="c">02 KV</span></a></li>
-    <li><a href="#p-4u2" data-peek="4u2-pop"><span class="n">03</span><span class="b">4U2</span><span class="s">Juicy · ป๊อป Gen Z, โคลสอัปแบบนิตยสาร</span><span class="c">02 KV</span></a></li>
-    <li><a href="#p-mistine" data-peek="mistine-summer"><span class="n">04</span><span class="b">Mistine</span><span class="s">Summer Power · สาดน้ำหน้าร้อน, แบนเนอร์ 12.12</span><span class="c">02 KV</span></a></li>
-    <li><a href="#p-cathy" data-peek="cathy-moon"><span class="n">05</span><span class="b">Cathy Doll</span><span class="s">Moonlit · ฝันพาสเทล, เท็กซ์เจอร์อาร์ต</span><span class="c">02 KV</span></a></li>
+  <ol class="rows">
+    <li><a href="#scbrush" data-scroll data-peek="cookie"><span class="n">01</span><span class="b f-scb">Scbrush</span><span class="s">The Chocolate Collection · หรูโทนมืด, บิวตี้พอร์ตเทรต</span><span class="c">05 KV</span></a></li>
+    <li><a href="#srichand" data-scroll data-peek="srichand-heritage"><span class="n">02</span><span class="b f-sri">Srichand</span><span class="s">Thai Heritage · มรดกไทย, มินิมอลเบาหวิว</span><span class="c">02 KV</span></a></li>
+    <li><a href="#u42" data-scroll data-peek="4u2-pop"><span class="n">03</span><span class="b f-4u2">4U2</span><span class="s">Juicy · ป๊อป Gen Z, โคลสอัปแบบนิตยสาร</span><span class="c">02 KV</span></a></li>
+    <li><a href="#mistine" data-scroll data-peek="mistine-summer"><span class="n">04</span><span class="b f-mis">Mistine</span><span class="s">Summer Power · สาดน้ำหน้าร้อน, แบนเนอร์ 12.12</span><span class="c">02 KV</span></a></li>
+    <li><a href="#cathy" data-scroll data-peek="cathy-moon"><span class="n">05</span><span class="b f-cat">Cathy Doll</span><span class="s">Moonlit · ฝันพาสเทล, เท็กซ์เจอร์อาร์ต</span><span class="c">02 KV</span></a></li>
   </ol>
 </section>
 
-<section class="block" id="idea" data-bg="#120b08" data-fg="#e8d2ad">
-  <div class="project-tag reveal"><b>01</b><span class="eyebrow">Scbrush — The Chocolate Collection</span></div>
-  <div class="idea">
-    <h2 class="reveal">Indulgence,<br><i>refined.</i></h2>
-    <div class="cols">
-      <div class="reveal"><span class="eyebrow">01 — Insight</span><h3>แบรนด์ที่ตั้งชื่อเป็นขนม</h3><p>Ovaltine, Cookie, Chocolate, Choco Melt สินค้าทุกตัวของ Scbrush มีชื่อเป็นของหวาน และใช้โทนน้ำตาลครีมเป็นเอกลักษณ์อยู่แล้ว</p></div>
-      <div class="reveal"><span class="eyebrow">02 — Idea</span><h3>เนื้อสัมผัส คือคำสัญญา</h3><p>นมที่ไหลเนียน ช็อกโกแลตที่ละลาย ผงแป้งที่ฟุ้งเป็นละออง ใช้ภาพที่ "สัมผัสได้" แทนคำว่านุ่ม เพื่อให้คนดูรู้สึกถึงขนแปรงก่อนได้ลองจริง</p></div>
-      <div class="reveal"><span class="eyebrow">03 — Craft</span><h3>หรูแบบยั้งมือ</h3><p>ฮีโร่หนึ่งชิ้นต่อหนึ่งภาพ พื้นที่ว่างเยอะ แสงเดียว ตัวอักษร Didone ใหญ่แบบปกนิตยสาร คู่กับไทยหนึ่งบรรทัดใต้เส้นทองบาง ให้ทั้งแคมเปญอ่านเป็นเสียงเดียวกัน</p></div>
+<section class="hs" id="scbrush" data-bg="#100906" data-fg="#e8d2ad">
+  <div class="track" id="hsTrack">
+    <div class="intro">
+      <div class="tag"><b>01</b><span class="eyebrow">Scbrush — Campaign Concept</span></div>
+      <h2>The<br><i>Chocolate</i><br>Collection</h2>
+      <p>แบรนด์แปรงไทยที่ตั้งชื่อสินค้าเป็นขนมทุกตัว จึงเล่าความนุ่มของขนแปรงด้วยภาษาของนม ช็อกโกแลต และผงแป้งที่ฟุ้ง ฮีโร่หนึ่งชิ้นต่อภาพ ตัวอักษร Didone แบบปกนิตยสาร</p>
+      <p class="q">ไม่ได้ขายแปรง แต่ขาย<em>ความรู้สึก</em>ตอนปาดครั้งแรก</p>
     </div>
-  </div>
-  <p class="quote reveal">ไม่ได้ขายแปรง<br>แต่ขาย<em>ความรู้สึก</em>ตอนปาดครั้งแรก</p>
-</section>
-
-<div id="campaign">
-<section class="chapter" data-bg="#100906" data-fg="#e8d2ad">
-  <div class="ghost">COOKIE</div>
-  <div class="visual reveal"><div class="tag eyebrow"><span>Key Visual</span><span>4:5</span></div>
-    <div class="frame" data-i="0"><img src="img/cookie.webp" alt="โปสเตอร์ COOKIE แปรงเซต 12 ชิ้นตั้งเป็นช่อบนแผ่นหินในแสงสปอต" loading="lazy"></div></div>
-  <div class="copy">
-    <span class="num reveal">01 / 05</span>
-    <h3 class="reveal">Cookie</h3>
-    <span class="product reveal">Cookie Brush Set — 12 pieces</span>
-    <p class="thai reveal">ครบเซต 12 ชิ้น นุ่มแน่นทุกด้าม</p>
-    <p class="reveal">เปิดแคมเปญด้วยความมืดและแสงเดียว แปรงถูกจัดเป็นประติมากรรมบนหินทราเวอร์ทีน ผงชิมเมอร์บรอนซ์ลอยในลำแสงเหมือนควันจากเตาอบ ให้ความรู้สึกพรีเมียมแบบ Tom Ford Beauty</p>
-    <dl class="reveal"><dt>Mood</dt><dd>Dark · Sculptural · Dramatic</dd><dt>Light</dt><dd>Single hard spotlight</dd></dl>
-    <div class="swatches reveal"><i style="background:#0e0806"></i><i style="background:#3a2519"></i><i style="background:#8a6650"></i><i style="background:#e3c9a1"></i></div>
-  </div>
-</section>
-
-<section class="chapter" data-bg="#f3ebe0" data-fg="#2a1a12" data-accent="#7a4b33">
-  <div class="ghost">SOFTNESS</div>
-  <div class="visual reveal"><div class="tag eyebrow"><span>Key Visual</span><span>4:5</span></div>
-    <div class="frame" data-i="1"><img src="img/softness.webp" alt="โปสเตอร์ SOFTNESS ภาพมาโครแปรงกดลงตลับแป้งบนผ้าซาตินครีม" loading="lazy"></div></div>
-  <div class="copy">
-    <span class="num reveal">02 / 05</span>
-    <h3 class="reveal">Softness</h3>
-    <span class="product reveal">Cookie Brush Collection — Macro</span>
-    <p class="thai reveal">นุ่มทุกสัมผัส จิกสีแน่นทุกปาด</p>
-    <p class="reveal">ภาพคู่โทนสว่างของ Cookie ซูมเข้าไปที่ขนแปรงเส้นต่อเส้น จังหวะที่แป้งแตกและฟุ้งขึ้นพิสูจน์ "การจิกสี" ด้วยภาพ ไม่ต้องอธิบายด้วยคำ</p>
-    <dl class="reveal"><dt>Mood</dt><dd>Airy · Tactile · Clean</dd><dt>Light</dt><dd>Soft window + golden rim</dd></dl>
-    <div class="swatches reveal"><i style="background:#f6efe5"></i><i style="background:#e2cdb2"></i><i style="background:#b88c68"></i><i style="background:#2a1a12"></i></div>
-  </div>
-</section>
-
-<section class="chapter" data-bg="#d7b18c" data-fg="#2a1a12" data-accent="#7a4b33">
-  <div class="ghost">OVALTINE</div>
-  <div class="visual reveal"><div class="tag eyebrow"><span>Key Visual</span><span>4:5</span></div>
-    <div class="frame" data-i="2"><img src="img/ovaltine.webp" alt="โปสเตอร์ OVALTINE แปรง 7 ชิ้นตั้งในแอ่งนมมอลต์พร้อมริบบิ้นนม" loading="lazy"></div></div>
-  <div class="copy">
-    <span class="num reveal">03 / 05</span>
-    <h3 class="reveal">Ovaltine</h3>
-    <span class="product reveal">Ovaltine Brush — 7-piece essential set</span>
-    <p class="thai reveal">นุ่มละมุน เหมือนนมอุ่นๆ</p>
-    <p class="reveal">เซตขายดีที่สุดของแบรนด์ สำหรับมือใหม่ จึงเลือกอารมณ์อบอุ่นเป็นมิตร แปรงตั้งในแอ่งนมมอลต์ มีริบบิ้นนมพันรอบด้าม และเฟอร์รูลโรสโกลด์ที่สะท้อนแสงยามเย็น</p>
-    <dl class="reveal"><dt>Mood</dt><dd>Warm · Comforting · Golden</dd><dt>Light</dt><dd>Golden-hour backlight</dd></dl>
-    <div class="swatches reveal"><i style="background:#f1dcc0"></i><i style="background:#c89b72"></i><i style="background:#cf9f82"></i><i style="background:#5a3b2a"></i></div>
-  </div>
-</section>
-
-<section class="chapter" data-bg="#140b07" data-fg="#e8d2ad">
-  <div class="ghost">FLAWLESS</div>
-  <div class="visual reveal"><div class="tag eyebrow"><span>Key Visual</span><span>4:5</span></div>
-    <div class="frame" data-i="3"><img src="img/flawless-109.webp" alt="โปสเตอร์ FLAWLESS แปรงรองพื้น No.109 ตั้งบนผิวช็อกโกแลตละลาย" loading="lazy"></div></div>
-  <div class="copy">
-    <span class="num reveal">04 / 05</span>
-    <h3 class="reveal">Flawless</h3>
-    <span class="product reveal">Chocolate Foundation Brush — No.109</span>
-    <p class="thai reveal">งานผิวเนียน ตั้งแต่ปาดแรก</p>
-    <p class="reveal">แปรงรองพื้นด้ามเดียวในความเงียบ ปลายด้ามแตะผิวช็อกโกแลตจนเกิดวงคลื่นสมบูรณ์แบบ มีรองพื้นสีเบจวนเป็นลายหินอ่อน เปรียบรองพื้นที่เกลี่ยเนียนเหมือนช็อกโกแลตละลาย</p>
-    <dl class="reveal"><dt>Mood</dt><dd>Sensual · Liquid · Minimal</dd><dt>Light</dt><dd>Overhead soft spot</dd></dl>
-    <div class="swatches reveal"><i style="background:#0f0805"></i><i style="background:#3b2117"></i><i style="background:#c9a587"></i><i style="background:#e8d2ad"></i></div>
-  </div>
-</section>
-
-<section class="chapter" data-bg="#ead6bd" data-fg="#2a1a12" data-accent="#7a4b33">
-  <div class="ghost">MELT</div>
-  <div class="visual reveal"><div class="tag eyebrow"><span>Beauty Portrait</span><span>4:5</span></div>
-    <div class="frame" data-i="4"><img src="img/melt-puff.webp" alt="โปสเตอร์ MELT นางแบบหลับตาถือพัฟ Choco Melt แนบแก้ม ผิวฉ่ำ" loading="lazy"></div></div>
-  <div class="copy">
-    <span class="num reveal">05 / 05</span>
-    <h3 class="reveal">Melt</h3>
-    <span class="product reveal">Choco Melt Puff — antibacterial</span>
-    <p class="thai reveal">พัฟเดียวจบ ผิวฉ่ำเงา</p>
-    <p class="reveal">ปิดแคมเปญด้วยภาพ beauty portrait ให้เห็นผลลัพธ์บนผิวจริง ผิวโกลว์ที่ยังเห็นเท็กซ์เจอร์ ไม่เนียนจนเป็นพลาสติก แสงบิวตี้ดิชกับขอบแสงทองตามโทนแคมเปญ</p>
-    <dl class="reveal"><dt>Mood</dt><dd>Serene · Luminous · Editorial</dd><dt>Retouch</dt><dd>Glass skin, texture kept</dd></dl>
-    <div class="swatches reveal"><i style="background:#f0dcc2"></i><i style="background:#d9b38e"></i><i style="background:#8b5e45"></i><i style="background:#3a2419"></i></div>
-  </div>
-</section>
-</div>
-
-<section class="lineup" id="lineup" data-bg="#120b08" data-fg="#e8d2ad">
-  <header>
-    <h2 class="reveal">One voice,<br><i>five stories.</i></h2>
-    <p class="eyebrow reveal">Click to view full size</p>
-  </header>
-  <div class="wall" id="wall"></div>
-</section>
-
-<section class="block" id="system" data-bg="#f3ebe0" data-fg="#2a1a12" data-accent="#7a4b33">
-  <div class="system">
-    <div>
-      <p class="eyebrow reveal">Design System</p>
-      <h2 class="reveal">Built to<br><i>scale.</i></h2>
-      <ol class="rules reveal">
-        <li>ฮีโร่ชิ้นเดียวต่อภาพ เว้นพื้นที่ว่างอย่างน้อย 40% ของเฟรม</li>
-        <li>หัวข้ออังกฤษหนึ่งคำด้วย Didone บางพิเศษ วางบนสุดเสมอ</li>
-        <li>ไทยหนึ่งบรรทัดใต้เส้นทองบาง เป็นจุดอ่านที่สองของภาพ</li>
-        <li>สลับภาพมืดกับภาพสว่าง ให้ฟีดดูมีจังหวะเมื่อเรียงต่อกัน</li>
-        <li>ทุกชิ้นใช้สีสินค้าจริง ขนแปรง เฟอร์รูล ด้าม ต้องตรงกับของจริง</li>
-      </ol>
-      <div class="palette reveal">
-        <div style="background:#120b08;color:#e8d2ad"><b>Espresso</b>#120B08</div>
+    <div class="panel"><span class="no">01 / 05</span><div class="frame" data-i="0"><img src="img/cookie.webp" alt="Scbrush Cookie poster" loading="lazy"></div><div class="cap"><b>Cookie</b><span>ครบเซต 12 ชิ้น นุ่มแน่นทุกด้าม</span></div></div>
+    <div class="panel"><span class="no">02 / 05</span><div class="frame" data-i="1"><img src="img/softness.webp" alt="Scbrush Softness poster" loading="lazy"></div><div class="cap"><b>Softness</b><span>นุ่มทุกสัมผัส จิกสีแน่นทุกปาด</span></div></div>
+    <div class="panel"><span class="no">03 / 05</span><div class="frame" data-i="2"><img src="img/ovaltine.webp" alt="Scbrush Ovaltine poster" loading="lazy"></div><div class="cap"><b>Ovaltine</b><span>นุ่มละมุน เหมือนนมอุ่นๆ</span></div></div>
+    <div class="panel"><span class="no">04 / 05</span><div class="frame" data-i="3"><img src="img/flawless-109.webp" alt="Scbrush Flawless poster" loading="lazy"></div><div class="cap"><b>Flawless</b><span>งานผิวเนียน ตั้งแต่ปาดแรก</span></div></div>
+    <div class="panel"><span class="no">05 / 05</span><div class="frame" data-i="4"><img src="img/melt-puff.webp" alt="Scbrush Melt puff poster" loading="lazy"></div><div class="cap"><b>Melt</b><span>พัฟเดียวจบ ผิวฉ่ำเงา</span></div></div>
+    <div class="panel sys">
+      <span class="eyebrow">Design System</span>
+      <div class="spec">Aa <i>Ff</i></div>
+      <div class="specth">กขค นุ่ม</div>
+      <div class="sw">
+        <div style="background:#120b08;color:#e8d2ad;box-shadow:inset 0 0 0 1px rgba(232,210,173,.15)"><b>Espresso</b>#120B08</div>
         <div style="background:#3a2519;color:#e8d2ad"><b>Cocoa</b>#3A2519</div>
         <div style="background:#6b4a3a;color:#f5ede2"><b>Mocha</b>#6B4A3A</div>
         <div style="background:#c89b72;color:#120b08"><b>Caramel</b>#C89B72</div>
         <div style="background:#e8d2ad;color:#120b08"><b>Champagne</b>#E8D2AD</div>
-        <div style="background:#f5ede2;color:#120b08;box-shadow:inset 0 0 0 1px rgba(42,26,18,.15)"><b>Ivory</b>#F5EDE2</div>
+        <div style="background:#f5ede2;color:#120b08"><b>Ivory</b>#F5EDE2</div>
       </div>
     </div>
-    <div class="specimen">
-      <div class="row reveal"><span class="big">Aa <i>Ff</i></span><span class="label">Display<br>Bodoni Moda</span></div>
-      <div class="row reveal"><span class="bigth">กขค นุ่ม</span><span class="label">Thai headline<br>Trirong ExtraLight</span></div>
-      <div class="row reveal"><span class="small">The Complete 12-Piece Collection</span><span class="label">Caption<br>Manrope · +280 tracking</span></div>
-      <div class="row reveal"><span style="font-family:'Anuphan';font-weight:300">เกลี่ยรองพื้นเนียนกริบ ไม่เป็นคราบ</span><span class="label">Body Thai<br>Anuphan Light</span></div>
-    </div>
   </div>
 </section>
 
-<section class="project" id="p-srichand" data-bg="#1b0e1d" data-fg="#ecd9b8" data-accent="#d4af6a">
-  <div class="ghost" aria-hidden="true">1948</div>
-  <div class="head">
-    <div>
-      <div class="project-tag reveal"><b>02</b><span class="eyebrow">Key Visual Concept</span></div>
-      <h2 class="brand reveal">Srichand</h2>
-      <p class="dir reveal">Thai Heritage Luxury</p>
-    </div>
-    <div class="about reveal"><p>แป้งโปร่งแสงในตำนานตั้งแต่ปี 1948 เล่าสองด้านของแบรนด์ ด้านแรกเป็นความหรูแบบไทยด้วยถาดมุกและพวงมาลัย ด้านที่สองเป็นความเบาของเนื้อแป้งในพื้นที่ขาวโล่ง</p><div class="chips"><span>Heritage</span><span>Luxury</span><span>Minimal</span><span>Still life</span></div></div>
+<section class="brand sri" id="srichand" data-bg="#1b0e1d" data-fg="#ecd9b8" data-accent="#d4af6a" data-anim="rise">
+  <div class="ghost f-sri" aria-hidden="true">1948</div>
+  <div class="side">
+    <div class="tag"><b>02</b><span class="eyebrow">Key Visual Concept</span></div>
+    <h2 class="name f-sri split" data-split="chars">Srichand</h2>
+    <p class="dir">Thai Heritage Luxury</p>
+    <p class="thai">ความงามแบบไทย ที่เบาดั่งอากาศ</p>
+    <p class="about">แป้งโปร่งแสงในตำนานตั้งแต่ปี 1948 เล่าสองด้านของแบรนด์ ด้านแรกเป็นความหรูแบบไทยด้วยถาดมุกและพวงมาลัย ด้านที่สองเป็นความเบาของเนื้อแป้งในพื้นที่ขาวโล่ง</p>
+    <div class="chips"><span>Heritage</span><span>Luxury</span><span>Minimal</span><span>Still life</span></div>
+    <div class="dots"><i style="background:#2a1230"></i><i style="background:#5b2a63"></i><i style="background:#d4af6a"></i><i style="background:#f4ecf4"></i></div>
   </div>
-  <div class="pair">
-    <figure class="reveal"><div class="pf" data-i="5"><img src="img/srichand-heritage.webp" alt="Heritage — Srichand" loading="lazy"></div><figcaption><b>Heritage</b><span>ความงามแบบไทย ที่เบาดั่งอากาศ</span></figcaption></figure>
-    <figure class="reveal"><div class="pf" data-i="6"><img src="img/srichand-minimal.webp" alt="Weightless — Srichand" loading="lazy"></div><figcaption><b>Weightless</b><span>เบา ใส เหมือนไม่ได้ทา</span></figcaption></figure>
-  </div>
-</section>
-
-<section class="project" id="p-4u2" data-bg="#ffd6dd" data-fg="#4a1027" data-accent="#b0164f">
-  <div class="ghost" aria-hidden="true">JUICY</div>
-  <div class="head">
-    <div>
-      <div class="project-tag reveal"><b>03</b><span class="eyebrow">Key Visual Concept</span></div>
-      <h2 class="brand reveal">4U2</h2>
-      <p class="dir reveal">Juicy Pop × Editorial</p>
-    </div>
-    <div class="about reveal"><p>ลิปเนื้อน้ำสำหรับ Gen Z ทำสองโทนเสียงจากสินค้าเดียว ภาพแรกเป็นตัวหนังสือ 3 มิติพองฉ่ำกับน้ำกระเซ็นแบบเลื่อนฟีดแล้วต้องหยุด ภาพที่สองเป็นโคลสอัปริมฝีปากแบบนิตยสาร</p><div class="chips"><span>Gen Z</span><span>3D Type</span><span>Beauty Close-up</span><span>Retouch</span></div></div>
-  </div>
-  <div class="pair">
-    <figure class="reveal"><div class="pf" data-i="7"><img src="img/4u2-pop.webp" alt="Juicy Pop — 4U2" loading="lazy"></div><figcaption><b>Juicy Pop</b><span>ฉ่ำเหมือนน้ำ ติดทนทั้งวัน</span></figcaption></figure>
-    <figure class="reveal"><div class="pf" data-i="8"><img src="img/4u2-editorial.webp" alt="Editorial — 4U2" loading="lazy"></div><figcaption><b>Editorial</b><span>สีชัด เบาเหมือนไม่ได้ทา</span></figcaption></figure>
+  <div class="shots">
+    <figure class="shot"><div class="frame" data-i="5"><img src="img/srichand-heritage.webp" alt="Srichand heritage key visual" loading="lazy"></div><figcaption><b>Heritage</b><span>ถาดมุก พวงมาลัย แป้งฟุ้งในลำแสง</span></figcaption></figure>
+    <figure class="shot"><div class="frame" data-i="6"><img src="img/srichand-minimal.webp" alt="Srichand weightless key visual" loading="lazy"></div><figcaption><b>Weightless</b><span>เบา ใส เหมือนไม่ได้ทา</span></figcaption></figure>
   </div>
 </section>
 
-<section class="project" id="p-mistine" data-bg="#d6eff9" data-fg="#0b3550" data-accent="#c44a0c">
-  <div class="ghost" aria-hidden="true">SPF50+</div>
-  <div class="head">
-    <div>
-      <div class="project-tag reveal"><b>04</b><span class="eyebrow">Key Visual Concept</span></div>
-      <h2 class="brand reveal">Mistine</h2>
-      <p class="dir reveal">Summer Power &amp; Commerce</p>
-    </div>
-    <div class="about reveal"><p>กันแดดที่ต้องขายได้ทั้งภาพลักษณ์และยอดขาย ภาพแรกเป็นคีย์วิชวลแคมเปญหน้าร้อนที่ใช้คลื่นทะเลกับแดดจัด ภาพที่สองเป็นแบนเนอร์ 12.12 สำหรับร้านค้าบน Shopee/Lazada</p><div class="chips"><span>Campaign KV</span><span>Splash</span><span>E-commerce</span><span>Promotion</span></div></div>
+<section class="brand u42" id="u42" data-bg="#ffd6dd" data-fg="#4a1027" data-accent="#b0164f" data-anim="bounce">
+  <div class="ghost f-4u2" aria-hidden="true">JUICY</div>
+  <div class="side">
+    <div class="tag"><b>03</b><span class="eyebrow">Key Visual Concept</span></div>
+    <h2 class="name f-4u2 split" data-split="chars">4U2</h2>
+    <p class="dir">Juicy Pop × Editorial</p>
+    <p class="thai">ฉ่ำเหมือนน้ำ ติดทนทั้งวัน</p>
+    <p class="about">ลิปเนื้อน้ำสำหรับ Gen Z ทำสองโทนเสียงจากสินค้าเดียว ภาพแรกเป็นตัวหนังสือ 3 มิติพองฉ่ำกับน้ำกระเซ็นแบบเลื่อนฟีดแล้วต้องหยุด ภาพที่สองเป็นโคลสอัปริมฝีปากแบบนิตยสาร</p>
+    <div class="chips"><span>Gen Z</span><span>3D Type</span><span>Close-up</span><span>Retouch</span></div>
+    <div class="dots"><i style="background:#ff8fab"></i><i style="background:#ff5c8a"></i><i style="background:#b0164f"></i><i style="background:#ffe5d0"></i></div>
   </div>
-  <div class="pair">
-    <figure class="reveal"><div class="pf" data-i="9"><img src="img/mistine-summer.webp" alt="Summer Power — Mistine" loading="lazy"></div><figcaption><b>Summer Power</b><span>สู้แดดไทย เบาเหมือนน้ำ</span></figcaption></figure>
-    <figure class="reveal"><div class="pf sq" data-i="10"><img src="img/mistine-1212.webp" alt="12.12 Mega Sale — Mistine" loading="lazy"></div><figcaption><b>12.12 Mega Sale</b><span>แบนเนอร์ร้านค้า 1:1</span></figcaption></figure>
+  <div class="shots">
+    <figure class="shot"><div class="frame" data-i="7"><img src="img/4u2-pop.webp" alt="4U2 juicy pop key visual" loading="lazy"></div><figcaption><b>Juicy Pop</b><span>ตัวหนังสือ 3 มิติ น้ำกระเซ็น</span></figcaption></figure>
+    <figure class="shot"><div class="frame" data-i="8"><img src="img/4u2-editorial.webp" alt="4U2 editorial close-up" loading="lazy"></div><figcaption><b>Editorial</b><span>สีชัด เบาเหมือนไม่ได้ทา</span></figcaption></figure>
   </div>
 </section>
 
-<section class="project" id="p-cathy" data-bg="#e6ddf4" data-fg="#2e2150" data-accent="#6a46b8">
-  <div class="ghost" aria-hidden="true">MOON</div>
-  <div class="head">
-    <div>
-      <div class="project-tag reveal"><b>05</b><span class="eyebrow">Key Visual Concept</span></div>
-      <h2 class="brand reveal">Cathy Doll</h2>
-      <p class="dir reveal">Celestial Dream × Texture</p>
-    </div>
-    <div class="about reveal"><p>ลิปกลอสฝาทรงกลมที่ชื่อเกี่ยวกับดวงจันทร์ ภาพแรกเป็นโลกแฟนตาซีพาสเทลที่มีพระจันทร์เสี้ยว ภาพที่สองตัดทุกอย่างออกเหลือแค่เนื้อกลอสที่ไหลเป็นประติมากรรม</p><div class="chips"><span>Fantasy</span><span>Pastel</span><span>Texture Art</span><span>Macro</span></div></div>
+<section class="brand mis" id="mistine" data-bg="#d6eff9" data-fg="#0b3550" data-accent="#c44a0c" data-anim="skew">
+  <div class="ghost f-mis" aria-hidden="true">SPF50+</div>
+  <div class="side">
+    <div class="tag"><b>04</b><span class="eyebrow">Key Visual Concept</span></div>
+    <h2 class="name f-mis split" data-split="chars">Mistine</h2>
+    <p class="dir">Summer Power &amp; Commerce</p>
+    <p class="thai">สู้แดดไทย เบาเหมือนน้ำ</p>
+    <p class="about">กันแดดที่ต้องขายได้ทั้งภาพลักษณ์และยอดขาย ภาพแรกเป็นคีย์วิชวลแคมเปญหน้าร้อนที่ใช้คลื่นทะเลกับแดดจัด ภาพที่สองเป็นแบนเนอร์ 12.12 สำหรับร้านค้าบน Shopee/Lazada</p>
+    <div class="chips"><span>Campaign KV</span><span>Splash</span><span>E-commerce</span><span>Promotion</span></div>
+    <div class="dots"><i style="background:#6ec6ea"></i><i style="background:#0b3550"></i><i style="background:#f26a1b"></i><i style="background:#fff3e0"></i></div>
   </div>
-  <div class="pair">
-    <figure class="reveal"><div class="pf" data-i="11"><img src="img/cathy-moon.webp" alt="Moonlit — Cathy Doll" loading="lazy"></div><figcaption><b>Moonlit</b><span>ฉ่ำวาว ดั่งแสงจันทร์</span></figcaption></figure>
-    <figure class="reveal"><div class="pf" data-i="12"><img src="img/cathy-texture.webp" alt="Gloss Texture — Cathy Doll" loading="lazy"></div><figcaption><b>Gloss Texture</b><span>เนื้อฉ่ำ ไม่เหนียวเหนอะ</span></figcaption></figure>
+  <div class="shots">
+    <figure class="shot"><div class="frame" data-i="9"><img src="img/mistine-summer.webp" alt="Mistine summer key visual" loading="lazy"></div><figcaption><b>Summer Power</b><span>คลื่นทะเล แดดจัด</span></figcaption></figure>
+    <figure class="shot"><div class="frame sq" data-i="10"><img src="img/mistine-1212.webp" alt="Mistine 12.12 e-commerce banner" loading="lazy"></div><figcaption><b>12.12 Mega Sale</b><span>แบนเนอร์ร้านค้า 1:1</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="brand cat" id="cathy" data-bg="#e6ddf4" data-fg="#2e2150" data-accent="#6a46b8" data-anim="glow">
+  <div class="ghost f-cat" aria-hidden="true">Moonlit</div>
+  <div class="side">
+    <div class="tag"><b>05</b><span class="eyebrow">Key Visual Concept</span></div>
+    <h2 class="name f-cat split" data-split="chars">Cathy Doll</h2>
+    <p class="dir">Celestial Dream × Texture</p>
+    <p class="thai">ฉ่ำวาว ดั่งแสงจันทร์</p>
+    <p class="about">ลิปกลอสฝาทรงกลมที่ชื่อเกี่ยวกับดวงจันทร์ ภาพแรกเป็นโลกแฟนตาซีพาสเทลที่มีพระจันทร์เสี้ยว ภาพที่สองตัดทุกอย่างออก เหลือแค่เนื้อกลอสที่ไหลเป็นประติมากรรม</p>
+    <div class="chips"><span>Fantasy</span><span>Pastel</span><span>Texture Art</span><span>Macro</span></div>
+    <div class="dots"><i style="background:#c9b6ee"></i><i style="background:#f4b6d8"></i><i style="background:#d9dce3"></i><i style="background:#c75f73"></i></div>
+  </div>
+  <div class="shots">
+    <figure class="shot"><div class="frame" data-i="11"><img src="img/cathy-moon.webp" alt="Cathy Doll moonlit key visual" loading="lazy"></div><figcaption><b>Moonlit</b><span>พระจันทร์เสี้ยว โลกพาสเทล</span></figcaption></figure>
+    <figure class="shot"><div class="frame" data-i="12"><img src="img/cathy-texture.webp" alt="Cathy Doll gloss texture" loading="lazy"></div><figcaption><b>Gloss Texture</b><span>เนื้อฉ่ำ ไม่เหนียวเหนอะ</span></figcaption></figure>
   </div>
 </section>
 
 <section class="voices" id="voices" data-bg="#120b08" data-fg="#e8d2ad">
-  <p class="eyebrow reveal">Range</p>
-  <h2 class="reveal">One designer,<br><i>many voices.</i></h2>
-  <ul class="reveal">
-    <li data-peek="cookie">Dark Luxury</li><li data-peek="srichand-heritage">Thai Heritage</li><li data-peek="srichand-minimal">Weightless</li>
-    <li data-peek="4u2-pop">Juicy Pop</li><li data-peek="4u2-editorial">Editorial</li><li data-peek="melt-puff">Beauty Portrait</li>
-    <li data-peek="mistine-summer">Summer Splash</li><li data-peek="mistine-1212">E-commerce</li><li data-peek="cathy-moon">Celestial</li><li data-peek="cathy-texture">Texture Art</li>
+  <p class="eyebrow">Range — every style, its own typeface</p>
+  <h2 class="h2" style="margin-top:20px"><span class="wrap-line"><span class="split" data-split="chars">One</span> <span class="split" data-split="chars">designer,</span></span><span class="wrap-line"><i class="split" data-split="chars">many</i> <i class="split" data-split="chars">voices.</i></span></h2>
+  <ul>
+    <li class="v1" data-peek="cookie">Dark Luxury</li>
+    <li class="v2" data-peek="srichand-heritage">Thai Heritage</li>
+    <li class="v3" data-peek="srichand-minimal">Weightless</li>
+    <li class="v4" data-peek="4u2-pop">Juicy Pop</li>
+    <li class="v5" data-peek="4u2-editorial">Editorial</li>
+    <li class="v6" data-peek="melt-puff">Beauty Portrait</li>
+    <li class="v7" data-peek="mistine-summer">Summer Splash</li>
+    <li class="v8" data-peek="mistine-1212">E-commerce 12.12</li>
+    <li class="v9" data-peek="cathy-moon">Celestial</li>
+    <li class="v10" data-peek="cathy-texture">Texture Art</li>
   </ul>
 </section>
 
+<section class="wallsec" data-bg="#120b08" data-fg="#e8d2ad">
+  <header>
+    <h2 class="h2"><span class="wrap-line"><span class="split" data-split="chars">The</span> <span class="split" data-split="chars">full</span></span><span class="wrap-line"><i class="split" data-split="chars">collection.</i></span></h2>
+    <p class="eyebrow">Click any piece to view full size</p>
+  </header>
+  <div class="wall" id="wall"></div>
+</section>
+
 <section class="contact" id="contact" data-bg="#120b08" data-fg="#e8d2ad">
-  <div>
-    <p class="eyebrow reveal">Graphic Designer — Beauty &amp; Cosmetics</p>
-    <h2 class="reveal">Let's make<br><i>beauty</i> feel.</h2>
-    <p class="eyebrow role reveal" id="role"></p>
-    <figure class="qr reveal"><img src="img/line-qr.png" alt="QR Code สำหรับเพิ่มเพื่อนใน LINE" width="438" height="437"><figcaption class="eyebrow">Scan to add on LINE</figcaption></figure>
-    <a class="btn reveal" id="cta" href="#" target="_blank" rel="noopener">Get in touch <span aria-hidden="true">→</span></a>
+  <p class="eyebrow">Graphic Designer — Beauty &amp; Cosmetics</p>
+  <h2 style="margin-top:22px"><span class="wrap-line"><span class="split" data-split="chars">Let's</span> <span class="split" data-split="chars">make</span></span><span class="wrap-line"><i class="split" data-split="chars">beauty</i> <span class="split" data-split="chars">feel.</span></span></h2>
+  <p class="eyebrow role">Graphic Designer · Retouch · Art Direction</p>
+  <div class="qr"><img src="img/line-qr.png" alt="QR Code สำหรับเพิ่มเพื่อนใน LINE" width="438" height="437"></div>
+  <a class="btn magnetic" href="https://line.me/ti/p/PeBKGyoHYJ" target="_blank" rel="noopener" data-cursor="LINE">Add on LINE <span aria-hidden="true">→</span></a>
+  <div class="marquee" aria-hidden="true">
+    <div class="track"><span>Available</span><em>✦</em><span>WFH</span><em>✦</em><span>Full-time</span><em>✦</em><span>Freelance</span><em>✦</em></div>
   </div>
 </section>
 </main>
 
-<footer data-bg="#120b08" data-fg="#e8d2ad">
+<footer>
   <span>© 2026 Beauty by Design</span>
+  <span>Beauty &amp; Cosmetics · Key Visual · Retouch · E-commerce</span>
 </footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ดูภาพขนาดเต็ม">
@@ -591,18 +488,16 @@ footer p{max-width:70ch;font-family:"Anuphan",var(--sans);font-weight:300}
   <div class="count" id="lbCount"></div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
-const PROFILE = {
-  role: "Graphic Designer · Retouch · Art Direction",
-  contactLabel: "Add on LINE",
-  contactHref: "https://line.me/ti/p/PeBKGyoHYJ"
-};
 const WORKS = [
-  { key: "cookie", title: "Cookie" },
-  { key: "softness", title: "Softness" },
-  { key: "ovaltine", title: "Ovaltine" },
-  { key: "flawless-109", title: "Flawless" },
-  { key: "melt-puff", title: "Melt" },
+  { key: "cookie", title: "Scbrush — Cookie" },
+  { key: "softness", title: "Scbrush — Softness" },
+  { key: "ovaltine", title: "Scbrush — Ovaltine" },
+  { key: "flawless-109", title: "Scbrush — Flawless" },
+  { key: "melt-puff", title: "Scbrush — Melt" },
   { key: "srichand-heritage", title: "Srichand — Heritage" },
   { key: "srichand-minimal", title: "Srichand — Weightless" },
   { key: "4u2-pop", title: "4U2 — Juicy Pop" },
@@ -612,108 +507,159 @@ const WORKS = [
   { key: "cathy-moon", title: "Cathy Doll — Moonlit" },
   { key: "cathy-texture", title: "Cathy Doll — Texture" }
 ];
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fine = matchMedia("(pointer: fine)").matches;
+const animate = !!(window.gsap && window.ScrollTrigger) && !reduce;
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+if (!location.hash) scrollTo(0, 0);
+if (animate) document.documentElement.classList.add("anim");
 
-document.getElementById("role").textContent = PROFILE.role;
-const cta = document.getElementById("cta");
-cta.href = PROFILE.contactHref;
-cta.firstChild.textContent = PROFILE.contactLabel + " ";
-
-const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const finePointer = matchMedia("(pointer: fine)").matches;
-
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("loader").classList.add("done");
-    document.body.classList.add("ready");
-  }, reduceMotion ? 0 : 1300);
-});
-
-const wall = document.getElementById("wall");
-WORKS.slice(0, 5).forEach((w, i) => {
+const wall = $("#wall");
+WORKS.forEach((w, i) => {
   const b = document.createElement("button");
   b.dataset.i = i;
   b.setAttribute("aria-label", "ดูภาพ " + w.title + " ขนาดเต็ม");
-  b.innerHTML = `<img src="img/${w.key}.webp" alt="" loading="lazy"><span class="cap">0${i + 1} — ${w.title.toUpperCase()}</span>`;
+  b.innerHTML = `<img src="img/${w.key}.webp" alt="" loading="lazy"><span class="cap">${String(i + 1).padStart(2, "0")} — ${w.title.toUpperCase()}</span>`;
   wall.appendChild(b);
 });
 
-const themed = [...document.querySelectorAll("[data-bg]")];
-const applyTheme = el => {
-  document.body.style.backgroundColor = el.dataset.bg;
-  document.body.style.color = el.dataset.fg;
-  document.documentElement.style.setProperty("--fg", el.dataset.fg);
-  document.documentElement.style.setProperty("--accent", el.dataset.accent || "#cf9f82");
-};
-const themeObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) applyTheme(e.target); });
-}, { rootMargin: "-45% 0px -45% 0px" });
-themed.forEach(el => themeObserver.observe(el));
-
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add("in"); revealObserver.unobserve(e.target); }
-  });
-}, { threshold: .18 });
-document.querySelectorAll(".chapter, .block, .lineup, .contact, .project, .index, .voices, .reveal").forEach(el => revealObserver.observe(el));
-
-const progress = document.getElementById("progress");
-const ghosts = [...document.querySelectorAll(".ghost")];
-let ticking = false;
-const onScroll = () => {
-  const max = document.documentElement.scrollHeight - innerHeight;
-  progress.style.transform = `scaleX(${scrollY / max})`;
-  if (!reduceMotion) {
-    ghosts.forEach(g => {
-      const r = g.parentElement.getBoundingClientRect();
-      const t = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
-      g.style.setProperty("--shift", (t * 18) + "vw");
-    });
+const esc = t => t.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+$$(".split").forEach(el => {
+  const text = el.textContent.trim();
+  el.setAttribute("aria-label", text);
+  if (el.dataset.split === "chars") {
+    el.innerHTML = text.split(" ").map(w => `<span class="w" aria-hidden="true">${[...w].map(c => `<span class="ch">${esc(c)}</span>`).join("")}</span>`).join(" ");
+  } else {
+    el.innerHTML = text.split(/\s+/).map(w => `<span class="w" aria-hidden="true">${esc(w)}</span>`).join(" ");
   }
-  ticking = false;
+});
+
+(function gloss() {
+  const canvas = $("#gloss");
+  const fallback = () => { canvas.style.background = "radial-gradient(60% 70% at 70% 40%,#5a3726,#120b08)"; };
+  const gl = canvas.getContext("webgl", { antialias: false, alpha: false, powerPreference: "high-performance" });
+  if (!gl) return fallback();
+  const vs = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+  const fs = `precision highp float;uniform vec2 r;uniform float t;uniform vec2 m;
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;mat2 R=mat2(.8,.6,-.6,.8);for(int i=0;i<5;i++){v+=a*n(p);p=R*p*2.02;a*=.5;}return v;}
+float field(vec2 p){vec2 q=vec2(fbm(p+vec2(0.,t*.05)),fbm(p+vec2(5.2,1.3)-t*.04));vec2 w=vec2(fbm(p+3.*q+vec2(1.7,9.2)+t*.03),fbm(p+3.*q+vec2(8.3,2.8)));return fbm(p+2.4*w);}
+void main(){vec2 uv=gl_FragCoord.xy/r;vec2 p=(gl_FragCoord.xy-.5*r)/r.y*1.5;vec2 mm=(m-.5)*vec2(r.x/r.y,1.)*1.5;float d=length(p-mm);p-=(p-mm)*.22*exp(-d*d*2.5);
+float e=.006;float f=field(p);float fx=field(p+vec2(e,0.));float fy=field(p+vec2(0.,e));
+vec3 nr=normalize(vec3((f-fx)/e*.07,(f-fy)/e*.07,1.));vec3 L=normalize(vec3(-.35,.55,.75));
+float df=dot(nr,L)*.5+.5;float sp=pow(max(dot(reflect(-L,nr),vec3(0.,0.,1.)),0.),26.);
+vec3 c1=vec3(.07,.043,.031),c2=vec3(.24,.15,.1),c3=vec3(.56,.37,.26),c4=vec3(.81,.62,.51),c5=vec3(.95,.86,.71);
+vec3 col=mix(c1,c2,smoothstep(.22,.58,f));col=mix(col,c3,smoothstep(.52,.78,f));col=mix(col,c4,smoothstep(.74,.95,f)*.55);
+col*=.5+.65*df;col+=c5*sp*.6;col*=mix(.45,1.,smoothstep(.0,.75,uv.x));col*=mix(.35,1.,smoothstep(1.25,.25,length(uv-vec2(.62,.55))*1.4));
+gl_FragColor=vec4(col,1.);}`;
+  const mk = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, mk(gl.VERTEX_SHADER, vs));
+  gl.attachShader(pr, mk(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return fallback();
+  gl.useProgram(pr);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, "p");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const uR = gl.getUniformLocation(pr, "r"), uT = gl.getUniformLocation(pr, "t"), uM = gl.getUniformLocation(pr, "m");
+  const scale = Math.min(devicePixelRatio, 2) * (innerWidth < 900 ? .45 : .55);
+  const size = () => { canvas.width = Math.round(canvas.clientWidth * scale); canvas.height = Math.round(canvas.clientHeight * scale); gl.viewport(0, 0, canvas.width, canvas.height); };
+  size();
+  addEventListener("resize", size);
+  const mouse = { x: .7, y: .5, tx: .7, ty: .5 };
+  addEventListener("pointermove", e => { mouse.tx = e.clientX / innerWidth; mouse.ty = 1 - e.clientY / innerHeight; });
+  let visible = true;
+  const start = performance.now();
+  new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(canvas);
+  const draw = now => {
+    mouse.x += (mouse.tx - mouse.x) * .05; mouse.y += (mouse.ty - mouse.y) * .05;
+    gl.uniform2f(uR, canvas.width, canvas.height);
+    gl.uniform1f(uT, reduce ? 8 : (now - start) / 1000);
+    gl.uniform2f(uM, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+  if (reduce) return draw(0);
+  const loop = now => { if (visible) draw(now); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+})();
+
+let lenis = null;
+if (animate && window.Lenis) {
+  lenis = new Lenis({ lerp: .085 });
+  lenis.on("scroll", ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
+$$("[data-scroll]").forEach(a => a.addEventListener("click", e => {
+  const target = $(a.getAttribute("href"));
+  if (!target) return;
+  e.preventDefault();
+  if (lenis) lenis.scrollTo(target, { duration: 1.6 }); else target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+}));
+
+const progress = $("#progress");
+addEventListener("scroll", () => {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+}, { passive: true });
+
+const applyTheme = el => {
+  const root = document.documentElement.style;
+  root.setProperty("--fg", el.dataset.fg);
+  root.setProperty("--accent", el.dataset.accent || "#cf9f82");
+  if (animate) gsap.to(document.body, { backgroundColor: el.dataset.bg, color: el.dataset.fg, duration: .9, ease: "power2.out", overwrite: true });
+  else { document.body.style.backgroundColor = el.dataset.bg; document.body.style.color = el.dataset.fg; }
 };
-addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
-onScroll();
+const themed = $$("[data-bg]");
+if (!animate) {
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && applyTheme(e.target)), { rootMargin: "-45% 0px -45% 0px" });
+  themed.forEach(el => io.observe(el));
+}
 
-const hero = document.getElementById("hero");
-const fanInner = document.getElementById("fanInner");
-if (finePointer && !reduceMotion) {
-  hero.addEventListener("pointermove", e => {
-    const r = hero.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    hero.style.setProperty("--mx", x * 100 + "%");
-    hero.style.setProperty("--my", y * 100 + "%");
-    fanInner.style.transform = `rotateY(${(x - .5) * 14}deg) rotateX(${(.5 - y) * 10}deg)`;
+const peek = $("#peek"), peekImg = $("img", peek);
+const cursor = $("#cursor"), cursorLabel = $("#cursorLabel");
+if (fine) {
+  const pos = { x: innerWidth / 2, y: innerHeight / 2 }, cur = { x: pos.x, y: pos.y }, pk = { x: pos.x, y: pos.y, r: 0 };
+  addEventListener("pointermove", e => { pos.x = e.clientX; pos.y = e.clientY; });
+  const tick = () => {
+    cur.x += (pos.x - cur.x) * .22; cur.y += (pos.y - cur.y) * .22;
+    cursor.style.transform = `translate(${cur.x}px,${cur.y}px)`;
+    const vx = pos.x - pk.x;
+    pk.x += vx * .1; pk.y += (pos.y - pk.y) * .1; pk.r += (Math.max(-18, Math.min(18, vx * .12)) - pk.r) * .1;
+    peek.style.left = pk.x + 150 + "px"; peek.style.top = pk.y + "px"; peek.style.rotate = pk.r + "deg";
+    requestAnimationFrame(tick);
+  };
+  tick();
+  $$("[data-i]").forEach(el => { el.dataset.cursor = el.dataset.cursor || "View"; });
+  $$("[data-cursor]").forEach(el => {
+    el.addEventListener("pointerenter", () => { cursorLabel.textContent = el.dataset.cursor; cursor.classList.add("big"); });
+    el.addEventListener("pointerleave", () => cursor.classList.remove("big"));
   });
-  document.querySelectorAll(".visual .frame").forEach(f => {
-    f.addEventListener("pointermove", e => {
-      const r = f.getBoundingClientRect();
-      f.style.setProperty("--ry", ((e.clientX - r.left) / r.width - .5) * 8 + "deg");
-      f.style.setProperty("--rx", (.5 - (e.clientY - r.top) / r.height) * 8 + "deg");
+  $$("[data-peek]").forEach(el => {
+    el.addEventListener("pointerenter", () => {
+      peekImg.src = `img/${el.dataset.peek}.webp`;
+      if (animate) gsap.to(peek, { opacity: 1, scale: 1, duration: .5, ease: "expo.out", overwrite: true }); else peek.style.opacity = 1;
     });
-    f.addEventListener("pointerleave", () => { f.style.setProperty("--rx", "0deg"); f.style.setProperty("--ry", "0deg"); });
+    el.addEventListener("pointerleave", () => {
+      if (animate) gsap.to(peek, { opacity: 0, scale: .6, duration: .4, ease: "power3.in", overwrite: true }); else peek.style.opacity = 0;
+    });
+  });
+  if (animate) $$(".magnetic").forEach(el => {
+    el.addEventListener("pointermove", e => {
+      const r = el.getBoundingClientRect();
+      gsap.to(el, { x: (e.clientX - r.left - r.width / 2) * .35, y: (e.clientY - r.top - r.height / 2) * .35, duration: .5, ease: "power3.out" });
+    });
+    el.addEventListener("pointerleave", () => gsap.to(el, { x: 0, y: 0, duration: 1, ease: "elastic.out(1,.35)" }));
   });
 }
 
-const peek = document.getElementById("peek");
-if (finePointer) {
-  const peekImg = peek.querySelector("img");
-  document.querySelectorAll("[data-peek]").forEach(el => {
-    el.addEventListener("pointerenter", () => { peekImg.src = `img/${el.dataset.peek}.webp`; peek.classList.add("on"); });
-    el.addEventListener("pointerleave", () => peek.classList.remove("on"));
-  });
-  addEventListener("pointermove", e => { peek.style.left = e.clientX + 140 + "px"; peek.style.top = e.clientY + "px"; });
-}
-
-const cursor = document.getElementById("cursor");
-if (finePointer) {
-  addEventListener("pointermove", e => { cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px"; });
-  document.querySelectorAll(".frame, .wall button, .pf").forEach(el => {
-    el.addEventListener("pointerenter", () => { cursor.classList.add("big"); cursor.textContent = "View"; });
-    el.addEventListener("pointerleave", () => { cursor.classList.remove("big"); cursor.textContent = ""; });
-  });
-}
-
-const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lbImg"), lbCount = document.getElementById("lbCount");
+const lb = $("#lightbox"), lbImg = $("#lbImg"), lbCount = $("#lbCount");
 let current = 0, lastFocus = null;
 const show = i => {
   current = (i + WORKS.length) % WORKS.length;
@@ -721,12 +667,12 @@ const show = i => {
   lbImg.alt = WORKS[current].title;
   lbCount.textContent = `${WORKS[current].title} — ${String(current + 1).padStart(2, "0")} / ${WORKS.length}`;
 };
-const openLb = i => { lastFocus = document.activeElement; show(i); lb.classList.add("open"); document.getElementById("lbClose").focus(); };
-const closeLb = () => { lb.classList.remove("open"); if (lastFocus) lastFocus.focus(); };
-document.querySelectorAll("[data-i]").forEach(el => el.addEventListener("click", () => openLb(+el.dataset.i)));
-document.getElementById("lbClose").onclick = closeLb;
-document.getElementById("lbPrev").onclick = () => show(current - 1);
-document.getElementById("lbNext").onclick = () => show(current + 1);
+const openLb = i => { lastFocus = document.activeElement; show(i); lb.classList.add("open"); if (lenis) lenis.stop(); $("#lbClose").focus(); };
+const closeLb = () => { lb.classList.remove("open"); if (lenis) lenis.start(); if (lastFocus) lastFocus.focus(); };
+$$("[data-i]").forEach(el => el.addEventListener("click", () => openLb(+el.dataset.i)));
+$("#lbClose").onclick = closeLb;
+$("#lbPrev").onclick = () => show(current - 1);
+$("#lbNext").onclick = () => show(current + 1);
 lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
 addEventListener("keydown", e => {
   if (!lb.classList.contains("open")) return;
@@ -734,6 +680,126 @@ addEventListener("keydown", e => {
   if (e.key === "ArrowRight") show(current + 1);
   if (e.key === "ArrowLeft") show(current - 1);
 });
+
+const marquees = $$(".marquee .track").map(track => {
+  track.innerHTML += track.innerHTML;
+  return animate ? gsap.to(track, { xPercent: -50, repeat: -1, duration: 26, ease: "none" }) : null;
+}).filter(Boolean);
+
+if (animate) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const loader = $("#loader"), stack = $("#stack"), count = $("#count");
+  ["cookie", "srichand-heritage", "4u2-pop", "mistine-summer", "cathy-moon", "ovaltine", "4u2-editorial", "cathy-texture"].forEach(k => {
+    const im = new Image(); im.src = `img/${k}.webp`; im.alt = ""; stack.appendChild(im);
+  });
+  const stackImgs = $$("img", stack);
+  let si = 0;
+  const flick = setInterval(() => { stackImgs.forEach(i => i.classList.remove("on")); stackImgs[si++ % stackImgs.length].classList.add("on"); }, 140);
+  const heroChars = $$(".hero h1 .ch");
+  gsap.set(heroChars, { yPercent: 115, rotate: 6 });
+  gsap.set(".hero-in", { opacity: 0, y: 24 });
+  gsap.set("#cards figure", { opacity: 0, y: 160, scale: .9 });
+  const counter = { v: 0 };
+  const ready = Promise.race([
+    Promise.all($$(".hero img").map(i => i.decode ? i.decode().catch(() => {}) : Promise.resolve())),
+    new Promise(r => setTimeout(r, 2600))
+  ]);
+  const intro = gsap.timeline({ paused: true })
+    .to(".loader .count span, .loader .tag", { yPercent: -110, opacity: 0, duration: .6, ease: "power3.in" })
+    .to(stack, { scale: 1.15, opacity: 0, duration: .7, ease: "power3.in" }, "<")
+    .to(".loader .cols span", { yPercent: -100, duration: 1.1, ease: "expo.inOut", stagger: .07 }, "-=.2")
+    .set(loader, { display: "none" })
+    .to(heroChars, { yPercent: 0, rotate: 0, duration: 1.3, ease: "expo.out", stagger: .035 }, "-=.75")
+    .to("#cards .k1", { opacity: 1, y: 0, scale: 1, duration: 1.4, ease: "expo.out" }, "<+.15")
+    .to("#cards .k2", { opacity: 1, y: 0, scale: 1, duration: 1.4, ease: "expo.out" }, "<+.1")
+    .to("#cards .k3", { opacity: 1, y: 0, scale: 1, duration: 1.4, ease: "expo.out" }, "<+.1")
+    .to(".hero-in", { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .1 }, "<+.2");
+  if (lenis) lenis.stop();
+  gsap.to(counter, {
+    v: 100, duration: 2, ease: "power2.inOut",
+    onUpdate: () => { count.textContent = String(Math.round(counter.v)).padStart(3, "0"); },
+    onComplete: () => ready.then(() => { clearInterval(flick); intro.play(); if (lenis) lenis.start(); })
+  });
+
+  const cards = $$("#cards figure");
+  if (fine) {
+    const qs = cards.map(c => ({ x: gsap.quickTo(c, "x", { duration: 1.2, ease: "power3.out" }), y: gsap.quickTo(c, "y", { duration: 1.2, ease: "power3.out" }) }));
+    $(".hero").addEventListener("pointermove", e => {
+      const dx = e.clientX / innerWidth - .5, dy = e.clientY / innerHeight - .5;
+      qs.forEach((q, i) => { const d = [28, 46, 34][i]; q.x(dx * d); q.y(dy * d); });
+    });
+  }
+  const heroScrub = { trigger: ".hero", start: "top top", end: "bottom top", scrub: true };
+  gsap.to(cards[0], { yPercent: -40, rotate: -18, ease: "none", scrollTrigger: heroScrub });
+  gsap.to(cards[1], { yPercent: -70, ease: "none", scrollTrigger: { ...heroScrub } });
+  gsap.to(cards[2], { yPercent: -30, rotate: 20, ease: "none", scrollTrigger: { ...heroScrub } });
+  gsap.to(".hero .copy", { yPercent: 30, opacity: .2, ease: "none", scrollTrigger: { ...heroScrub } });
+
+  const skewTo = $$(".marquee span").map(s => gsap.quickTo(s, "skewX", { duration: .5, ease: "power3.out" }));
+  ScrollTrigger.create({
+    onUpdate: self => {
+      const v = self.getVelocity();
+      const sk = gsap.utils.clamp(-14, 14, v / 160);
+      skewTo.forEach(f => f(sk));
+      marquees.forEach(m => gsap.to(m, { timeScale: (v < 0 ? -1 : 1) * (1 + Math.min(Math.abs(v) / 700, 4)), duration: .3, overwrite: true }));
+    }
+  });
+
+  gsap.set(".manifesto .split .w", { opacity: .12 });
+  gsap.to(".manifesto .big .w", { opacity: 1, stagger: .08, ease: "none", scrollTrigger: { trigger: ".manifesto .big", start: "top 78%", end: "bottom 45%", scrub: true } });
+  gsap.to(".manifesto .thx .w", { opacity: 1, stagger: .1, ease: "none", scrollTrigger: { trigger: ".manifesto .thx", start: "top 82%", end: "bottom 55%", scrub: true } });
+  gsap.from(".manifesto .meta > div", { y: 60, opacity: 0, duration: 1.2, stagger: .12, ease: "expo.out", scrollTrigger: { trigger: ".manifesto .meta", start: "top 85%" } });
+
+  $$(".h2, .contact h2").forEach(h => {
+    gsap.from($$(".ch", h), { yPercent: 115, rotate: 6, duration: 1.2, ease: "expo.out", stagger: .025, scrollTrigger: { trigger: h, start: "top 85%" } });
+  });
+  gsap.from(".rows li", { y: 50, opacity: 0, duration: 1.1, stagger: .08, ease: "expo.out", scrollTrigger: { trigger: ".rows", start: "top 82%" } });
+
+  const mm = gsap.matchMedia();
+  mm.add("(min-width: 901px)", () => {
+    const track = $("#hsTrack");
+    const dist = () => track.scrollWidth - innerWidth;
+    const tween = gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: "#scbrush", start: "top top", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 } });
+    $$(".panel .frame img").forEach(img => {
+      gsap.fromTo(img, { xPercent: -6 }, { xPercent: 6, ease: "none", scrollTrigger: { trigger: img.closest(".panel"), containerAnimation: tween, start: "left right", end: "right left", scrub: true } });
+    });
+    $$(".panel").forEach(p => {
+      gsap.from(p, { y: 90, rotate: 3, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: p, containerAnimation: tween, start: "left 92%" } });
+    });
+  });
+  mm.add("(max-width: 900px)", () => {
+    $$(".panel").forEach(p => gsap.from(p, { y: 70, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 88%" } }));
+  });
+
+  const brandAnim = {
+    rise: chars => gsap.from(chars, { yPercent: 110, opacity: 0, duration: 1.6, ease: "expo.out", stagger: .06 }),
+    bounce: chars => gsap.from(chars, { scale: 0, y: 80, rotate: () => gsap.utils.random(-25, 25), duration: 1.4, ease: "elastic.out(1,.4)", stagger: .1 }),
+    skew: chars => gsap.from(chars, { xPercent: -140, skewX: 35, opacity: 0, duration: 1, ease: "power4.out", stagger: .045 }),
+    glow: chars => gsap.from(chars, { opacity: 0, y: 30, filter: "blur(14px)", duration: 1.6, ease: "power3.out", stagger: .07 })
+  };
+  $$(".brand").forEach(sec => {
+    const chars = $$(".name .ch", sec);
+    gsap.set(chars, { opacity: 0 });
+    ScrollTrigger.create({ trigger: sec, start: "top 65%", once: true, onEnter: () => { gsap.set(chars, { opacity: 1 }); brandAnim[sec.dataset.anim](chars); } });
+    gsap.from($$(".side > *:not(.name)", sec), { y: 40, opacity: 0, duration: 1.1, stagger: .07, ease: "expo.out", scrollTrigger: { trigger: sec, start: "top 60%" } });
+    $$(".shot .frame", sec).forEach(f => {
+      gsap.fromTo(f, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.6, ease: "expo.inOut", scrollTrigger: { trigger: f, start: "top 85%" } });
+      gsap.fromTo($("img", f), { yPercent: -6, scale: 1.2 }, { yPercent: 6, scale: 1.05, ease: "none", scrollTrigger: { trigger: f, start: "top bottom", end: "bottom top", scrub: true } });
+    });
+    gsap.fromTo($(".ghost", sec), { xPercent: 10 }, { xPercent: -15, ease: "none", scrollTrigger: { trigger: sec, start: "top bottom", end: "bottom top", scrub: true } });
+  });
+
+  gsap.from(".voices li", { y: 60, opacity: 0, duration: 1.2, stagger: .06, ease: "expo.out", scrollTrigger: { trigger: ".voices ul", start: "top 85%" } });
+  gsap.set(".wall button", { y: 80, opacity: 0 });
+  ScrollTrigger.batch(".wall button", { start: "top 94%", onEnter: b => gsap.to(b, { y: 0, opacity: 1, duration: 1.2, ease: "expo.out", stagger: .06 }) });
+  gsap.from(".qr, .contact .btn", { y: 60, opacity: 0, duration: 1.2, stagger: .12, ease: "expo.out", scrollTrigger: { trigger: ".qr", start: "top 92%" } });
+
+  themed.forEach(el => ScrollTrigger.create({ trigger: el, start: "top 55%", end: "bottom 55%", onToggle: st => st.isActive && applyTheme(el) }));
+  if (lenis) lenis.on("scroll", () => { if (+peek.style.opacity > 0 || getComputedStyle(peek).opacity !== "0") gsap.to(peek, { opacity: 0, scale: .6, duration: .3, overwrite: true }); });
+  addEventListener("load", () => ScrollTrigger.refresh());
+  if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+}
 </script>
 </body>
 </html>
