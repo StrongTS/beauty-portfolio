@@ -30,12 +30,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .grad{background:linear-gradient(100deg,var(--a1),var(--a3) 38%,var(--a2) 70%,var(--a4));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:220% 100%;animation:hue 9s linear infinite}
 @keyframes hue{to{background-position:220% 0}}
 
-.aurora{position:fixed;inset:-20%;z-index:-2;pointer-events:none;filter:blur(90px);opacity:.55}
-.aurora i{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:drift 22s var(--ease) infinite alternate}
-.aurora i:nth-child(1){width:46vmax;height:46vmax;left:-6%;top:-8%;background:#6b2c7a}
-.aurora i:nth-child(2){width:40vmax;height:40vmax;right:-8%;top:10%;background:#1f4f9c;animation-delay:-6s}
-.aurora i:nth-child(3){width:38vmax;height:38vmax;left:24%;bottom:-14%;background:#8a4a2a;animation-delay:-12s}
-@keyframes drift{to{transform:translate(6vw,5vh) scale(1.18)}}
+.aurora{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(60vmax 60vmax at 8% 4%,rgba(107,44,122,.5),transparent 70%),radial-gradient(54vmax 54vmax at 96% 22%,rgba(31,79,156,.46),transparent 70%),radial-gradient(52vmax 52vmax at 42% 104%,rgba(138,74,42,.4),transparent 70%)}
+.aurora i{display:none}
 #fx{position:fixed;inset:0;z-index:-1;pointer-events:none}
 .grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
@@ -142,6 +138,13 @@ section{padding:clamp(70px,10vw,150px) var(--g)}
 .card:hover img{transform:scale(1.06)}
 .card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.28),transparent 46%);opacity:0;transition:opacity .4s;pointer-events:none}
 .card:hover::after{opacity:1}
+.card::before,.slide .ph::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .5s var(--ease);background:conic-gradient(from calc(var(--hx,0)*1deg) at var(--mx,50%) var(--my,50%),rgba(255,120,200,.55),rgba(255,214,120,.5),rgba(120,255,214,.5),rgba(120,190,255,.55),rgba(200,140,255,.55),rgba(255,120,200,.55))}
+.card:hover::before,.slide .ph:hover::before{opacity:.16}
+.card:hover{box-shadow:0 0 0 1.5px rgba(255,255,255,.5),0 0 34px rgba(255,159,197,.55),0 0 80px rgba(159,208,255,.4),0 30px 70px -30px #000;z-index:2}
+.slide .ph{transition:box-shadow .5s var(--ease)}
+.slide .ph:hover{box-shadow:0 0 0 1.5px rgba(255,255,255,.5),0 0 40px rgba(255,159,197,.5),0 0 100px rgba(159,208,255,.4),0 60px 120px -40px #000}
+.btn,.chip,.modes span,.arrows button{position:relative}
+#magic{position:fixed;inset:0;z-index:260;pointer-events:none}
 .card .meta{position:absolute;inset:auto 0 0 0;padding:34px 14px 12px;background:linear-gradient(transparent,rgba(8,6,14,.86));display:flex;justify-content:space-between;align-items:end;gap:8px;transform:translateY(8px);opacity:0;transition:all .5s var(--ease)}
 .card:hover .meta,.card:focus-visible .meta{transform:none;opacity:1}
 @media(hover:none){.card .meta{transform:none;opacity:1}}
@@ -173,7 +176,7 @@ section{padding:clamp(70px,10vw,150px) var(--g)}
 .status::before{content:"";position:absolute;inset:-2px;border-radius:inherit;background:var(--neon);filter:blur(20px);opacity:.6;z-index:-2;animation:glow 3.2s ease-in-out infinite}
 .status::after{content:"";position:absolute;inset:0;border-radius:inherit;border:2.5px solid transparent;z-index:-1;pointer-events:none;background:linear-gradient(100deg,transparent 42%,rgba(255,255,255,.1) 50%,transparent 58%) padding-box,linear-gradient(rgb(15,13,26),rgb(15,13,26)) padding-box,var(--neon) border-box;background-size:260% 100%,auto,auto;background-position:130% 0,0 0,0 0;background-repeat:no-repeat;animation:sheen 5.5s var(--ease) infinite}
 @keyframes spin{to{--ang:360deg}}
-@keyframes glow{50%{opacity:.9;filter:blur(28px)}}
+@keyframes glow{50%{opacity:.85}}
 @keyframes sheen{60%,100%{background-position:-30% 0,0 0,0 0}}
 .live{display:flex;align-items:center;gap:18px}
 .live i{flex:none;width:16px;height:16px;border-radius:50%;background:#6fe3a0;box-shadow:0 0 0 0 rgba(111,227,160,.6),0 0 22px #6fe3a0;animation:ping 2s infinite}
@@ -202,8 +205,8 @@ footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;paddin
 .lb .p{left:12px;top:50%;margin-top:-25px}.lb .n{right:12px;top:50%;margin-top:-25px}
 @media(max-width:640px){.lb .p,.lb .n{top:auto;bottom:22px;margin:0}}
 
-.cur{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px;border-radius:50%;background:var(--fg);mix-blend-mode:difference;pointer-events:none;z-index:300;transition:width .3s var(--ease),height .3s var(--ease),margin .3s var(--ease);display:none}
-.cur.big{width:74px;height:74px;margin:-37px}
+.cur{position:fixed;left:0;top:0;width:10px;height:10px;margin:-5px;border-radius:50%;background:#fff;box-shadow:0 0 12px 3px rgba(255,190,225,.9),0 0 26px 8px rgba(159,208,255,.5);pointer-events:none;z-index:300;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .35s,border-color .35s;display:none;border:1.5px solid transparent}
+.cur.big{width:56px;height:56px;margin:-28px;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.9);box-shadow:0 0 18px 2px rgba(255,159,197,.7),inset 0 0 14px rgba(159,208,255,.5)}
 @media(hover:hover) and (pointer:fine){.cur{display:block}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01s!important}.hero h1 .w>span{transform:none}.rv{opacity:1;transform:none}}
 </style>
@@ -212,6 +215,7 @@ footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;paddin
 <div class="loader" id="loader"><b id="cnt">0</b><span class="eyebrow">Visual by Design — Portfolio 2026</span></div>
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 <canvas id="fx" aria-hidden="true"></canvas>
+<canvas id="magic" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 <div class="bar" id="bar"></div>
 <div class="cur" id="cur"></div>
@@ -424,8 +428,23 @@ const cu=$('#cur');
 if(FINE){addEventListener('pointermove',e=>{cu.style.transform=`translate(${e.clientX}px,${e.clientY}px)`},{passive:true});
  document.addEventListener('pointerover',e=>cu.classList.toggle('big',!!e.target.closest('a,button,.card,.ph')))}
 
+(function(){if(!FINE||RM)return;const c=$('#magic'),g=c.getContext('2d');let S=[],run=false,d=1,lx=0,ly=0,last=0;
+ const fit=()=>{d=1;c.width=innerWidth*d;c.height=innerHeight*d};fit();addEventListener('resize',fit);
+ const HU=[330,45,160,205,270];
+ const add=(x,y,n,pow)=>{if(S.length>55)return;for(let i=0;i<n;i++){const a=Math.random()*6.283,v=(.3+Math.random())*pow;S.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-.35*pow,l:1,k:.022+Math.random()*.03,r:(2+Math.random()*5)*d,h:HU[(Math.random()*HU.length)|0],t:Math.random()*6.283,s:Math.random()<.65})}if(!run){run=true;requestAnimationFrame(tick)}};
+ const star=(x,y,r,rot)=>{g.beginPath();for(let i=0;i<8;i++){const rr=i%2?r*.3:r,a=rot+i*Math.PI/4;g.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr)}g.closePath();g.fill()};
+ function tick(){g.clearRect(0,0,c.width,c.height);g.globalCompositeOperation='lighter';
+  S=S.filter(p=>p.l>0);for(const p of S){p.x+=p.vx*d;p.y+=p.vy*d;p.vy+=.018;p.vx*=.985;p.l-=p.k;p.t+=.09;const al=Math.max(0,p.l),r=p.r*(.4+al*.8)*(.8+.2*Math.sin(p.t*3));
+   g.fillStyle=`hsla(${p.h},100%,${78+al*18}%,${al})`;
+   if(p.s)star(p.x,p.y,r,p.t);else{g.beginPath();g.arc(p.x,p.y,r*.38,0,6.283);g.fill()}}
+  if(S.length)requestAnimationFrame(tick);else{run=false;g.clearRect(0,0,c.width,c.height)}}
+ addEventListener('pointermove',e=>{const now=performance.now(),dist=Math.hypot(e.clientX-lx,e.clientY-ly);if(dist<26||now-last<48)return;last=now;lx=e.clientX;ly=e.clientY;
+  const hot=e.target.closest&&e.target.closest('.card,.ph,.btn,.chip,.deck figure,.modes span,.arrows button,.qr,.status');add(e.clientX*d,e.clientY*d,hot?2:1,hot?1.2:.7);
+  const hc=e.target.closest&&e.target.closest('.card,.ph');if(hc){const r=hc.getBoundingClientRect();hc.style.setProperty('--mx',(e.clientX-r.left)/r.width*100+'%');hc.style.setProperty('--my',(e.clientY-r.top)/r.height*100+'%');hc.style.setProperty('--hx',Math.round((e.clientX-r.left)/r.width*360))}},{passive:true});
+ let lastHot=null;document.addEventListener('pointerover',e=>{const h=e.target.closest&&e.target.closest('.card,.btn,.chip,.modes span,.arrows button');if(h&&h!==lastHot){const r=h.getBoundingClientRect();for(let i=0;i<5;i++){const t=Math.random(),side=(Math.random()*4)|0;const x=side<2?r.left+t*r.width:(side===2?r.left:r.right),y=side>=2?r.top+t*r.height:(side===0?r.top:r.bottom);add(x*d,y*d,1,1.1)}}lastHot=h});
+ addEventListener('pointerdown',e=>add(e.clientX*d,e.clientY*d,12,2.6))})();
 const cv=$('#fx'),cx=cv.getContext('2d');let P=[],vw,vh,dpr;
-function size(){dpr=Math.min(2,devicePixelRatio||1);vw=cv.width=innerWidth*dpr;vh=cv.height=innerHeight*dpr;const n=Math.round(Math.min(46,innerWidth/26));P=Array.from({length:n},()=>({x:Math.random()*vw,y:Math.random()*vh,r:(4+Math.random()*22)*dpr,v:(.12+Math.random()*.4)*dpr,p:Math.random()*6.28,h:[330,205,38,265][Math.floor(Math.random()*4)]}))}
+function size(){dpr=1;vw=cv.width=innerWidth;vh=cv.height=innerHeight;const n=Math.round(Math.min(20,innerWidth/60));P=Array.from({length:n},()=>({x:Math.random()*vw,y:Math.random()*vh,r:(4+Math.random()*22)*dpr,v:(.12+Math.random()*.4)*dpr,p:Math.random()*6.28,h:[330,205,38,265][Math.floor(Math.random()*4)]}))}
 function draw(t){cx.clearRect(0,0,vw,vh);cx.globalCompositeOperation='lighter';for(const b of P){b.y-=b.v;b.x+=Math.sin(t/1600+b.p)*.3*dpr;if(b.y<-b.r*2){b.y=vh+b.r*2;b.x=Math.random()*vw}
   const g=cx.createRadialGradient(b.x-b.r*.3,b.y-b.r*.3,b.r*.1,b.x,b.y,b.r);g.addColorStop(0,`hsla(${b.h},95%,97%,.16)`);g.addColorStop(.35,`hsla(${b.h},95%,85%,.02)`);g.addColorStop(.86,`hsla(${b.h},95%,82%,.03)`);g.addColorStop(.96,`hsla(${(b.h+60)%360},95%,86%,.22)`);g.addColorStop(1,`hsla(${b.h},95%,90%,0)`);
   cx.fillStyle=g;cx.beginPath();cx.arc(b.x,b.y,b.r,0,6.28);cx.fill()}
