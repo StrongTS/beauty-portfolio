@@ -143,7 +143,7 @@ section{padding:clamp(70px,10vw,150px) var(--g)}
 @keyframes pop{from{opacity:0;transform:translateY(26px) scale(.96)}}
 .card img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
 .card.sq{aspect-ratio:1}.card.pt{aspect-ratio:1200/1490}
-.grid{grid-auto-flow:dense}.card[style*='3000/1291']{grid-column:span 2}.card[style*='2500/1686']{grid-column:span 2}
+.grid{grid-auto-flow:dense}.card.wide{grid-column:span 2}
 .card:hover img{transform:scale(1.06)}
 .card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.28),transparent 46%);opacity:0;transition:opacity .4s;pointer-events:none}
 .card:hover::after{opacity:1}
@@ -371,6 +371,22 @@ const W=[
  {f:'fx-coffee',b:'Kofi',t:'Kofi Cold Brew',c:'Food & Drink',th:'กาแฟสกัดเย็น ริบบิ้นกาแฟกับนม ภาพสินค้าล้วน',fx:1},
  {f:'fx-keyboard',b:'Neokey',t:'Neokey Keys',c:'Tech',th:'คีย์บอร์ดเกมมิ่ง คีย์แคปลอย ภาพสินค้าล้วน',fx:1},
  {f:'fx-serum',b:'Dewa',t:'Dewa Serum',c:'Beauty',th:'เซรั่มขวดแก้ว หยดน้ำกับกลีบกุหลาบ ภาพสินค้าล้วน',fx:1},
+ {f:'mn-shabu',b:'Hana Shabu',t:'Shabu Buffet Menu',c:'Menu',th:'โปสเตอร์เมนูชาบู 3 แพ็กเกจ ราคา',ar:'2/3'},
+ {f:'mn-matcha',b:'Midori Bar',t:'Matcha Menu',c:'Menu',th:'เมนูเครื่องดื่มมัทฉะ 6 แก้ว ชื่อและราคาบนปลอกแก้ว',ar:'2/3'},
+ {f:'mn-mookrata',b:'ครัวเตาถ่าน',t:'Moo Krata Buffet',c:'Menu',th:'โปสเตอร์บุฟเฟต์หมูกระทะ เตาถ่าน',ar:'2/3'},
+ {f:'mn-bingsu',b:'Snowy Day Cafe',t:'Bingsu Menu',c:'Menu',th:'เมนูบิงซู 4 รส ป้ายชื่อและราคา',ar:'2/3'},
+ {f:'mn-sushi',b:'Kaze Sushi',t:'Omakase Menu',c:'Menu',th:'โปสเตอร์เมนูซูชิโอมากาเสะ 3 เซต',ar:'2/3'},
+ {f:'mn-noodle',b:'เรือนเส้น',t:'Boat Noodle Menu',c:'Menu',th:'โปสเตอร์ก๋วยเตี๋ยวเรือ ราคาชามเล็กและพิเศษ',ar:'2/3'},
+ {f:'mn-coffee',b:'Slowday Coffee',t:'Coffee Menu',c:'Menu',th:'เมนูกาแฟ 6 แก้ว ชื่อและราคาบนปลอกแก้ว',ar:'2/3'},
+ {f:'st-banner',b:'JuicyGo',t:'Store Banner',c:'Store Set',th:'แบนเนอร์หน้าร้าน Shopee พร้อมโค้ดส่วนลด',ar:'2/1'},
+ {f:'st-hero',b:'JuicyGo',t:'Product Cover',c:'Store Set',th:'ภาพปกสินค้า ราคา ป้ายส่งฟรี',ar:'1'},
+ {f:'st-feat',b:'JuicyGo',t:'Feature Callouts',c:'Store Set',th:'ภาพจุดเด่นสินค้า 5 ข้อ พร้อมเส้นชี้',ar:'1'},
+ {f:'st-life',b:'JuicyGo',t:'Lifestyle Shot',c:'Store Set',th:'ภาพการใช้งานจริง นางแบบ AI',ar:'1'},
+ {f:'st-colors',b:'JuicyGo',t:'Colour Lineup',c:'Store Set',th:'ภาพตัวเลือกสี 4 สี',ar:'3/2'},
+ {f:'st-detail',b:'JuicyGo',t:'Product Detail Page',c:'Store Set',th:'หน้ารายละเอียดสินค้ายาว 6 ส่วน สำหรับ Shopee Lazada TikTok Shop',ar:'3/2'},
+ {f:'md-beauty',b:'Dewa',t:'Beauty Campaign',c:'AI Model',th:'นางแบบ AI ถือเซรั่ม งานบิวตี้',ar:'2/3'},
+ {f:'md-fashion',b:'Mellow',t:'Fashion Campaign',c:'AI Model',th:'นางแบบ AI ถือกระเป๋า งานแฟชั่น',ar:'2/3'},
+ {f:'md-tech',b:'Echo',t:'Tech Campaign',c:'AI Model',th:'นายแบบ AI ใส่หูฟัง แสงนีออน',ar:'2/3'},
  {f:'sa-sale1212',b:'Nami',t:'12.12 Mega Sale',c:'Shop Ads',th:'แบนเนอร์โปร 12.12 ตัวเลข 3 มิติ ป้ายราคา',ar:'1'},
  {f:'sa-fbad',b:'Kleen',t:'Facebook Ads',c:'Shop Ads',th:'โพสต์โฆษณา หัวข้อแรง จุดขาย ราคา ปุ่มสั่งซื้อ',ar:'1'},
  {f:'sa-shopeecover',b:'Homey',t:'Shopee Cover',c:'Shop Ads',th:'ภาพปกสินค้า ป้ายส่งฟรี ของแท้ รับประกัน',ar:'1'},
@@ -381,6 +397,12 @@ const W=[
  {f:'sa-mascot',b:'Onigiri Hana',t:'Mascot & Stickers',c:'LINE',th:'มาสคอตน้องข้าวปั้น LINE Sticker 4 ท่า',ar:'1'},
  {f:'sa-menu',b:'ครัวบ้านสวน',t:'Restaurant Menu',c:'Print',th:'เมนูร้านอาหาร A4 ชื่อไทย-อังกฤษ ราคา',ar:'1654/2339'},
  {f:'sa-vinyl',b:'ครัวบ้านสวน',t:'Shopfront Banner',c:'Print',th:'ป้ายไวนิลหน้าร้าน ร้านเปิดใหม่',ar:'3000/1291'},
+ {f:'al-kleen-1',b:'Kleen',t:'Carousel 1/5 · Cover',c:'Carousel',th:'สไลด์แรก หัวข้อหยุดนิ้ว ชวนปัดต่อ',ar:'4/5'},
+ {f:'al-kleen-2',b:'Kleen',t:'Carousel 2/5 · Why',c:'Carousel',th:'จุดขาย 4 ข้อ อ่านจบใน 3 วินาที',ar:'4/5'},
+ {f:'al-kleen-3',b:'Kleen',t:'Carousel 3/5 · How to',c:'Carousel',th:'วิธีใช้ 3 ขั้นตอน',ar:'4/5'},
+ {f:'al-kleen-4',b:'Kleen',t:'Carousel 4/5 · Before/After',c:'Carousel',th:'ก่อน-หลัง สำหรับของใช้ในบ้าน',ar:'4/5'},
+ {f:'al-kleen-5',b:'Kleen',t:'Carousel 5/5 · Offer',c:'Carousel',th:'ราคา โปร ปุ่มสั่งซื้อ',ar:'4/5'},
+ {f:'sb-mamuang',b:'Mamuang',t:'Handmade Scrapbook',c:'Shop Ads',th:'โปรโมตแนวสแครปบุ๊ก ลายมือ กระดาษฉีก เทปลาย',ar:'1'},
  {f:'cookie',b:'Scbrush',t:'Cookie',c:'Beauty',th:'ครบเซต 12 ชิ้น นุ่มแน่นทุกด้าม'},
  {f:'4u2-pop',b:'4U2',t:'Juicy Pop',c:'Beauty',th:'ตัวหนังสือ 3 มิติ น้ำกระเซ็น'},
  {f:'cathy-moon',b:'Cathy Doll',t:'Moonlit',c:'Beauty',th:'พระจันทร์เสี้ยว โลกพาสเทล'},
@@ -406,7 +428,8 @@ $('#track').innerHTML=FX.map((w,i)=>`<article class="slide" data-i="${W.indexOf(
 $('#dots').innerHTML=FX.map(()=>'<i></i>').join('');
 const cats=['All',...new Set(W.map(w=>w.c))];
 $('#chips').innerHTML=cats.map((c,i)=>`<button class="chip${i?'':' on'}" data-c="${c}">${c}<sup>${c==='All'?W.length:W.filter(w=>w.c===c).length}</sup></button>`).join('');
-$('#grid').innerHTML=W.map((w,i)=>`<a class="card ${w.fx?'sq':'pt'} rv" href="${full(w)}" data-i="${i}" data-c="${w.c}" style="--dl:${(i%4)*.06}s${w.ar?`;aspect-ratio:${w.ar}`:''}"><img src="${thumb(w)}" alt="${w.b} — ${w.t}" loading="lazy"><div class="meta"><b>${w.t}</b><span>${w.b}</span></div></a>`).join('');
+const wide=w=>{if(!w.ar)return false;const [a,b]=w.ar.split('/');return a/(b||1)>1.3};
+$('#grid').innerHTML=W.map((w,i)=>`<a class="card ${w.fx?'sq':'pt'}${wide(w)?' wide':''} rv" href="${full(w)}" data-i="${i}" data-c="${w.c}" style="--dl:${(i%4)*.06}s${w.ar?`;aspect-ratio:${w.ar}`:''}"><img src="${thumb(w)}" alt="${w.b} — ${w.t}" loading="lazy"><div class="meta"><b>${w.t}</b><span>${w.b}</span></div></a>`).join('');
 
 const h1=$('#h1');
 (function split(n){[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t.trim()){f.append(t);return}const w=document.createElement('span');w.className='w';w.innerHTML=`<span>${t}</span>`;f.append(w)});c.replaceWith(f)}else{const w=document.createElement('span');w.className='w';c.replaceWith(w);const s=document.createElement('span');s.append(c);w.append(s)}})})(h1);
